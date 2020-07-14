@@ -3,6 +3,6 @@ class Client < ActiveRecord::Base
     validates :email, presence: true
     validates :name, presence: true
     has_many :appointments
-    has_many :providers, through: appointments
+    has_many :providers, through: :appointments
 
 end
