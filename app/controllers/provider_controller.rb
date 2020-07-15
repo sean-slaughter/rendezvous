@@ -14,8 +14,15 @@ class ProviderController < ApplicationController
         end
     end
 
-    get '/providers/:id' do 
-        erb :'providers/profile'
+    get '/providers/:id' do
+        if !logged_in?
+            redirect to '/login'
+        elsif current_user.instance_of?(Provider) && current_user.id == params[:id].to_i
+            erb :'providers/profile'
+        else
+            @provider = Provider.find(params[:id])
+            erb :'providers/show'
+        end
     end
 
 

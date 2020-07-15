@@ -34,4 +34,13 @@ p{
   padding-top: 20px;
 }
 
+.client-card{
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.client-card-name{
+  border: 5px solid lightgray;
+}
+
+
 
