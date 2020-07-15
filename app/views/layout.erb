@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="/stylesheets/test.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
    
 </head>
 <body>
@@ -17,21 +17,15 @@
   <div class="navbar-fixed"> 
       <nav>
         <div class="nav-wrapper" style="background-color:#EEE2DC">
-          <a href="#" class="brand-logo"> <img src="/images/brand_logo.png" style="height:45px; margin-left:10px; margin-top:8px;"> </a>
-            <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons" style="color:#AC3B61">menu</i></a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a style="color:#AC3B61" href="sass.html">Providers</a></li>
-            <li><a style="color:#AC3B61"href="badges.html">My Profile</a></li>
-            <li><a style="color:#AC3B61"href="collapsible.html">Appointments</a></li>
+        
+          <a href="#" class="brand-logo"> <img src="/images/brand_logo.png" style="height:45px; margin-left:50px; margin-top:8px;"> </a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down" style="margin-right: 50px;">
+            <li><a style="color:#AC3B61" href="/providers">Search Providers</a></li>
+            <li><a style="color:#AC3B61"href="/<%=session[:type]%>s/<%=current_user.id%>">My Profile</a></li>
+            <li><a style="color:#AC3B61"href="/logout">Log Out</a></li>
           </ul>
         </div>
       </nav>
-      <ul class="sidenav" id="mobile">
-        <li><a style="color:#8076a3" href="sass.html">Sass</a></li>
-        <li><a style="color:#8076a3" href="badges.html">Components</a></li>
-        <li><a style="color:#8076a3" href="collapsible.html">Javascript</a></li>
-        <li><a style="color:#8076a3" href="mobile.html">Mobile</a></li>
-      </ul>
   </div>
 </header>
 <%end%>

@@ -1,2 +1,30 @@
-Profile Page <%=current_user.name%> is logged in
-<%=current_user.name%> is a <%=session[:type]%>
+<div class="container">
+    <div class="row center top-spaced">
+       <div class="row center">
+        <h2>Hello, <%=current_user.name%>!</h2>
+       </div>
+       <div class="row center">
+            <p class="flow-text">Here is a list of all of your upcoming appointments:</p>
+       </div>
+       <%current_user.appointments.each do |appointment|%>
+       <div class="row center">
+    
+                <div class="card grey lighten-3 appointment-card">
+                    <span class="card-title"><%=appointment.provider.business_name%></span>
+                    <p>Date: <%=appointment.date%></p>
+                    <p>Services:</p>
+                    <%appointment.services.each do |service|%>
+                    <p><%=service.name.capitalize%> : $<%=service.price.to_f%></p>
+                    <%end%>
+                    <p>Total: $<%=appointment.total.to_f%></p>
+                      <div class="card-action black-text">
+                            <a class="black-text" href="#">Edit Appointment</a>
+                            <a class="black-text" href="#">View Provider</a>
+                      </div>
+                </div>
+           
+       </div>
+       <%end%>
+    </div>
+        
+</div>
