@@ -1,12 +1,31 @@
 <div class="container">
     <div class="row center top-spaced">
         <div class="card grey lighten-3 client-card">
-        <header class="container client-card-name">
-            <h1><%=@provider.business_name%></h1>
-        </header>
+            <header class="container client-card-name">
+                <h1><%=@provider.business_name%></h1>
+            </header>
             <h3>Owner: <%=@provider.name%></h3>
             <h3>Phone number: <%=@provider.phone_number%></h3>
             <h3>Address: <%=@provider.location%></h3>
         </div>
     </div>
 </div>
+
+<div class="container services">
+    
+    <div class="row center">
+        <h3>Services:</h3>
+        <%@provider.services.each do |service|%>
+            <div class="col s12 m6 l3 center-align">
+            <div class="card grey lighten-3 service-card">
+                <span class="card-title"><%=service.name%></span>
+                <div class="card-content">
+                    <p class="flex-text"><%=service.description%></p>
+                    <p>$<%='%.2f' % service.price.to_f%></p>  
+                </div>
+            </div>
+        </div>
+        <%end%>
+    </div>
+</div>
+    

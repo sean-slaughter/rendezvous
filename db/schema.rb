@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200714163823) do
+ActiveRecord::Schema.define(version: 20200715174636) do
 
   create_table "appointment_services", force: :cascade do |t|
     t.integer "appointment_id"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20200714163823) do
     t.string  "name"
     t.decimal "price"
     t.integer "provider_id"
+    t.string  "description"
   end
 
 end

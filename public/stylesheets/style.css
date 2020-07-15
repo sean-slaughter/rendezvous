@@ -47,5 +47,10 @@ p{
   display: inline-block;
 }
 
+.service-card{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 
 
