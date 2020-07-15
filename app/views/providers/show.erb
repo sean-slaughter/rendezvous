@@ -16,12 +16,12 @@
     <div class="row center">
         <h3>Services:</h3>
         <%@provider.services.each do |service|%>
-            <div class="col s12 m6 l3 center-align">
+            <div class="col s12 m6 center-align">
             <div class="card grey lighten-3 service-card">
-                <span class="card-title"><%=service.name%></span>
+                <span class="card-title"><u><%=service.name%></u></span>
                 <div class="card-content">
                     <p class="flex-text"><%=service.description%></p>
-                    <p>$<%='%.2f' % service.price.to_f%></p>  
+                    <h5>$<%='%.2f' % service.price.to_f%></h5>  
                 </div>
             </div>
         </div>
