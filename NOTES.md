@@ -20,4 +20,11 @@ end of day 7.15:
 - Provider and client notified on appointment cancellation
 
 
+things that would be nice:
+
+less boring landing page
+profile pages seem boring
+
+
+
 
