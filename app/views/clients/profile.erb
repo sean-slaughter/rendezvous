@@ -3,27 +3,36 @@
        <div class="row center">
         <h2>Hello, <%=current_user.name%>!</h2>
        </div>
+       <%if current_user.appointments.empty?%>
+         <div class="row center">
+            <p class="flow-text">You don't currently have any appointments!</p>
+            <p class="flow-text"><a href="/providers">Search for a Provider</a> to set up your next appointment.</p>
+       </div>
+       <%else%>
        <div class="row center">
             <p class="flow-text">Here is a list of all of your upcoming appointments:</p>
        </div>
+       
+
        <%current_user.appointments.each do |appointment|%>
        <div class="row center">
     
                 <div class="card grey lighten-3 appointment-card">
                     <span class="card-title"><%=appointment.provider.business_name%></span>
-                    <p>Date: <%=appointment.date%></p>
-                    <p>Services:</p>
+                    <p>Date: <%=appointment.date.strftime("%A %D")%></p>
+                    <p>Time: <%=appointment.date.strftime("%r")%></p>
+                    <p><u>Services:</u></p>
                     <%appointment.services.each do |service|%>
-                    <p><%=service.name.capitalize%> : $<%=service.price.to_f%></p>
+                    <p><%=service.name.capitalize%> : $<%='%.2f' % service.price.to_f%></p>
                     <%end%>
-                    <p>Total: $<%=appointment.total.to_f%></p>
+                    <p>Total: $<%='%.2f' % appointment.total.to_f%></p>
                       <div class="card-action black-text">
                             <a class="black-text" href="#">Edit Appointment</a>
                             <a class="black-text" href="#">View Provider</a>
                       </div>
                 </div>
-           
        </div>
+       <%end%>
        <%end%>
     </div>
         
