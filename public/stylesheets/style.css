@@ -42,6 +42,7 @@ p{
   border: 5px solid lightgray;
 }
 .btn-small{
+  margin-bottom: 30px;
   background-color : #AC3B61; 
   display: inline-block;
 }
