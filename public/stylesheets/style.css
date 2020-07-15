@@ -43,6 +43,7 @@ p{
 }
 .appointment-card-name{
   border: 2px solid lightgray;
+  padding-top: 7px;
 }
 .btn-small{
   margin-bottom: 30px;
@@ -60,6 +61,10 @@ p{
   border: 3px solid #eeddcc;
   background-color: aliceblue;
   margin-bottom: 150px;
+}
+
+.btn{
+  background-color : #AC3B61; 
 }
 
 

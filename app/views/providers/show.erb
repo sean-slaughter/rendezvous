@@ -2,11 +2,11 @@
     <div class="row center top-spaced">
         <div class="card grey lighten-3 client-card">
             <header class="container client-card-name">
-                <h1><%=@provider.business_name%></h1>
+                <h2><%=@provider.business_name%></h2>
             </header>
-            <h3>Owner: <%=@provider.name%></h3>
-            <h3>Phone number: <%=@provider.phone_number%></h3>
-            <h3>Address: <%=@provider.location%></h3>
+            <h4>Owner: <%=@provider.name%></h4>
+            <h4>Phone number: <%=@provider.phone_number%></h4>
+            <h4>Address: <%=@provider.location%></h4>
         </div>
     </div>
 </div>
@@ -26,6 +26,12 @@
             </div>
         </div>
         <%end%>
+        
     </div>
+    <div class="row center">
+    <a class="btn-large"style="margin-bottom: 150px;" href="">Book an Appointment</a>
+    </div>
+
+    
 </div>
     

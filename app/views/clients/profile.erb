@@ -14,13 +14,13 @@
        </div>
        <%else%>
        <div class="row center">
-            <p class="flow-text">Here is a list of all of your upcoming appointments:</p>
+            <h3>Your upcoming appointments:<h3>
        </div>
        
-
+    <div class="row center">
        <%current_user.appointments.each do |appointment|%>
-       <div class="row center">
-    
+       
+            <div class="col s12 m6 l6">
                 <div class="card grey lighten-3 appointment-card">
                 <header class="container appointment-card-name">
                     <span class="card-title"><u><%=appointment.provider.business_name%></u></span>
@@ -33,11 +33,12 @@
                     <%end%>
                     <h5>Total: $<%='%.2f' % appointment.total.to_f%></h5>
                       <div class="card-action">
-                            <a class="btn-large" href="#">Edit Appointment</a>
-                            <a class="btn-large" href="/providers/<%=appointment.provider.id%>">View Provider</a>
+                            <a class="btn" href="#">Edit Appointment</a>
+                            <a class="btn" href="/providers/<%=appointment.provider.id%>">View Provider</a>
                       </div>
                 </div>
-       </div>
+            
+            </div>
        <%end%>
        <%end%>
     </div>

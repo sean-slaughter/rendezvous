@@ -9,3 +9,15 @@ TODO for 7.15:
 - Confirm no registration bugs
 - Validation of single email addresses
 
+end of day 7.15:
+- Edit Provider Profile
+- Add services
+- Clients can request appointments
+- Provider confirms appointments
+- Client cannot see appointment until confirmed
+- Provider and client can cancel appointment
+- Client notified on appointment confirmation
+- Provider and client notified on appointment cancellation
+
+
+
