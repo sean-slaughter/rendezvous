@@ -1,0 +1,30 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@350&display=swap');
+body{
+  font-family: 'Josefin Sans', sans-serif;
+  background-color: #eee2dc;
+  background-image: linear-gradient(135deg, #eee2dc 10%, #eeddcc 74%);
+}
+
+.btn-large{
+  background-color : #AC3B61; 
+  display: inline-block;
+}
+
+p{
+  font-size: medium;
+}
+
+.landing{
+  margin-top: 150px;
+}
+
+.registration-form{
+  padding: 30px;
+  border: 3px solid #eeddcc;
+  background-color: aliceblue;
+}
+
+.login{
+  margin-top: 150px;
+}

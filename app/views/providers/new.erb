@@ -1,9 +1,56 @@
-<h1>Provider Signup</h1><br>
-<form action="/providers" method="post">
-<p>Name: <input type="text" name="name" id="name"></p>
-<p>Email: <input type="email" name="email" id="email"></p>
-<p>Password: <input type="password" name="password" id="password"></p>
-<p>Phone Number: <input type="text" name="phone_number" id="phone_number"></p>
-<p>Location: <input type="text" name="location" id="location"></p>
-<input type="submit" value="Sign Up">
-</form>
+<div class="container">
+    <div class="row center login">
+       <div class="row center">
+        <img src="/images/brand_logo.png" alt="">
+    </div>
+        <h1>Sign Up as a Provider</h1>
+    </div>
+    <div class="container">
+        <form class="registration-form" action="/login" method="post">
+           <div class="row">
+                <div class="input-field">
+                    <input type="text" name="name" id="name" class="validate">
+                    <label for="name">Name</label>
+                </div>
+            </div>
+             <div class="row">
+                <div class="input-field">
+                    <input type="text" name="business_name" id="business_name" class="validate">
+                    <label for="business_name">Business Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <input type="email" name="email" id="email" class="validate">
+                    <label for="email">Email</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <input type="password" name="password" id="password" class="validate">
+                    <label for="password">Password</label>
+                </div>
+            </div>
+             <div class="row">
+                <div class="input-field">
+                    <input type="text" name="phone_number" id="phone_number" class="validate">
+                    <label for="phone_number">Phone Number</label>
+                </div>
+            </div>
+          
+             <div class="row">
+                <div class="input-field">
+                    <input type="text" name="location" id="location" class="validate">
+                    <label for="location">Location</label>
+                </div>
+            </div>
+             <div class="row center">
+                <input class="btn-large" type="submit" value="Sign Up">
+            </div>
+        </form>
+    </div>
+    <div class="row center">
+    <p>Already have an account?</p>
+        <a href="/login">Login</a><br>
+    </div>
+</div>

@@ -1,32 +1,51 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-  <head>
-    <meta charset="utf-8" />
+<head>
+ <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 
     <title>Rendezvous</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="/stylesheets/test.css" />
+   
+</head>
+<body>
+<%if logged_in?%>
+<header class="top-nav">
+  <div class="navbar-fixed"> 
+      <nav>
+        <div class="nav-wrapper" style="background-color:#EEE2DC">
+          <a href="#" class="brand-logo"> <img src="/images/brand_logo.png" style="height:45px; margin-left:10px; margin-top:8px;"> </a>
+            <a href="#" data-target="mobile" class="sidenav-trigger"><i class="material-icons" style="color:#AC3B61">menu</i></a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a style="color:#AC3B61" href="sass.html">Providers</a></li>
+            <li><a style="color:#AC3B61"href="badges.html">My Profile</a></li>
+            <li><a style="color:#AC3B61"href="collapsible.html">Appointments</a></li>
+          </ul>
+        </div>
+      </nav>
+      <ul class="sidenav" id="mobile">
+        <li><a style="color:#8076a3" href="sass.html">Sass</a></li>
+        <li><a style="color:#8076a3" href="badges.html">Components</a></li>
+        <li><a style="color:#8076a3" href="collapsible.html">Javascript</a></li>
+        <li><a style="color:#8076a3" href="mobile.html">Mobile</a></li>
+      </ul>
+  </div>
+</header>
+<%end%>
 
-    <link rel="stylesheet" href="/stylesheets/main.css" />
-  </head>
-  <body>
-    <div class="wrapper">
+<div class="container">
+<%= yield %>
+</div>
 
-        <%= yield %>
-
-      <footer class="branding">
-        <small>&copy; 2020 <strong>Rendezvous</strong></small>
-      </footer>
-    </div>
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <!--[if lt IE 7]>
-      <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
-      <script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
-    <![endif]-->
-  </body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+  });
+</script>
+</body>
 </html>

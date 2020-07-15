@@ -1,10 +1,34 @@
-<h1>Login</h1>
+<div class="container">
+    <div class="row center login">
+       <div class="row center">
+        <img src="/images/brand_logo.png" alt="">
+    </div>
+        <h1>Welcome Back</h1>
+    </div>
+    <div class="container">
+        <form class="registration-form" action="/login" method="post">
+            <div class="row">
+                <div class="input-field">
+                    <input type="email" name="email" id="email" class="validate">
+                    <label for="email">Email</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <input type="password" name="password" id="password" class="validate">
+                    <label for="password">Password</label>
+                </div>
+            </div>
+             <div class="row center">
+                <input class="btn-large" type="submit" value="Log In">
+            </div>
+        </form>
+    </div>
+    <div class="row center">
+    <p>Don't have an Account?</p>
+        <a href="/client/signup">Sign Up as a Client</a><br>
+        <a href="/provider/signup">Sign Up as a Provider</a>
+    </div>
+</div>
 
-<form action="/login" method="post">
-<p>Email: <input type="email" name="email" id="email"></p>
-<p>Password: <input type="password" name="password" id="password"></p>
-<input type="submit" value="Log In">
-</form>
-<p>Don't have an Account?</p>
-<a href="/client/signup">Sign Up as a Client</a>
-<a href="/provider/signup">Sign Up as a Provider</a>
+
