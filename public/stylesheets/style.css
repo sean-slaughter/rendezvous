@@ -41,6 +41,10 @@ p{
 .client-card-name{
   border: 5px solid lightgray;
 }
+.btn-small{
+  background-color : #AC3B61; 
+  display: inline-block;
+}
 
 
 
