@@ -22,9 +22,11 @@
        <div class="row center">
     
                 <div class="card grey lighten-3 appointment-card">
+                <header class="container appiontment-card-name">
                     <span class="card-title"><u><%=appointment.provider.business_name%></u></span>
                     <p>Date: <%=appointment.date.strftime("%A %D")%></p>
                     <p>Time: <%=appointment.date.strftime("%r")%></p>
+                </header>
                     <p><u>Services:</u></p>
                     <%appointment.services.each do |service|%>
                     <p><%=service.name.capitalize%> : $<%='%.2f' % service.price.to_f%></p>
