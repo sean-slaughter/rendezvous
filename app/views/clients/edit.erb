@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row center top-spaced">
+       <div class="row center">
+        <h2>Hello, <%=current_user.name%>!</h2>
+       </div>
+    </div>
+      <div class="row center">
+        <h2>Edit Your Information</h2>       
+      </div>
+    </div>
+    <div class="container">
+        <form class="registration-form" action="/clients/<%=current_user.id%>" method="post">
+        <input id="hidden" type="hidden" name="_method" value="PATCH">
+           <div class="row">
+                <div class="input-field">
+                    <input type="text" name="name" id="name" value="<%=current_user.name%>" class="validate">
+                    <label for="name">Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <input type="email" name="email" id="email" value="<%=current_user.email%>" class="validate">
+                    <label for="email">Email</label>
+                </div>
+            </div>
+             <div class="row">
+                <div class="input-field">
+                    <input type="text" name="phone_number" id="phone_number" value="<%=current_user.phone_number%>" class="validate">
+                    <label for="phone_number">Phone Number</label>
+                </div>
+            </div>
+          
+             <div class="row">
+                <div class="input-field">
+                    <input type="text" name="location" id="location" value="<%=current_user.location%>" class="validate">
+                    <label for="location">Location</label>
+                </div>
+            </div>
+             <div class="row center">
+                <input class="btn-large" type="submit" value="Submit">
+            </div>
+        </form>
+</div>

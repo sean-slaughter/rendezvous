@@ -29,7 +29,7 @@
                         <p>Total: $<%='%.2f' % appointment.total.to_f%></p>
                         <div class="card-action">
                                 <a class="btn-large" href="#">Edit Appointment</a>
-                                <a class="btn-large" href="#">View Client</a>
+                                <a class="btn-large" href="/clients/<%=appointment.client.id%>">View Client</a>
                         </div>
                     </div>
                 </div>

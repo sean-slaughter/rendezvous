@@ -16,7 +16,43 @@ class ClientController < ApplicationController
     end
 
     get '/clients/:id' do
-        erb :'clients/profile'
+        if !logged_in?
+            redirect to '/login'
+        elsif current_user.instance_of?(Client) && current_user.id == params[:id].to_i
+            erb :'clients/profile'
+        else
+            @client = Client.find(params[:id])
+            erb :'clients/show'
+        end 
+    end
+
+    get '/clients/:id/edit' do
+        if !logged_in?
+            redirect to '/login'
+        elsif current_user.instance_of?(Client) && current_user.id == params[:id].to_i
+            erb :'clients/edit'
+        else
+            redirect to '/failure'
+        end
+    end
+            
+
+    patch '/clients/:id' do
+        if !logged_in?
+            redirect to '/login'
+        elsif current_user.instance_of?(Client) && current_user.id == params[:id].to_i
+            current_user.name = params[:name]
+            current_user.email = params[:email]
+            current_user.phone_number = params[:phone_number]
+            current_user.location = params[:location]
+            if current_user.save
+                redirect to "/clients/#{params[:id]}"
+            else
+                redirect to '/failure'
+            end
+        else
+            redirect to "/clients/#{params[:id]}"
+        end
     end
 
 
