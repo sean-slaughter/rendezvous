@@ -1,13 +1,9 @@
 <div class="container">
     <div class="row center top-spaced">
        <div class="row center">
-        <h2><%=current_user.business_name%></h2>
-         <a class="btn-small" href="/providers/<%=current_user.id%>/edit">Edit My Info</a>
+            <h2><%=current_user.business_name%></h2>
+            <a class="btn-small" href="/providers/<%=current_user.id%>/edit">Edit My Info</a>
        </div> 
-       <div class="row center">
-       
-       </div>
-
        <%if current_user.appointments.empty?%>
             <div class="row center">
                 <p class="flow-text">You currently don't have any appointments.</p>
@@ -15,26 +11,34 @@
         <%else%>
         <div class="row center">
                 <p class="flow-text">Here is a list of all of your upcoming appointments:</p>
-            </div>
-            <%current_user.appointments.each do |appointment|%>
-                <div class="row center">
-                    <div class="card grey lighten-3 appointment-card">
-                        <span class="card-title"><%=appointment.client.name%></span>
-                        <p>Date: <%=appointment.date.strftime("%A %D")%></p>
-                        <p>Time: <%=appointment.date.strftime("%r")%></p>
-                        <p><u>Services:</u></p>
-                        <%appointment.services.each do |service|%>
-                        <p><%=service.name.capitalize%> : $<%='%.2f' % service.price.to_f%></p>
-                        <%end%>
-                        <p>Total: $<%='%.2f' % appointment.total.to_f%></p>
-                        <div class="card-action">
-                                <a class="btn-large" href="#">Edit Appointment</a>
-                                <a class="btn-large" href="/clients/<%=appointment.client.id%>">View Client</a>
-                        </div>
-                    </div>
-                </div>
-            <% end %>
+        </div>
         <% end %>
 
+    <div class="row center">
+       <%current_user.appointments.each do |appointment|%>
+       
+            <div class="col s12 m12 l6">
+                <div class="card grey lighten-3 appointment-card">
+                    <header class="container appointment-card-name">
+                        <span class="card-title"><u><%=appointment.client.name%></u></span>
+                        <p>Date: <%=appointment.date.strftime("%A %D")%></p>
+                        <p>Time: <%=appointment.date.strftime("%r")%></p>
+                    </header>
+                    <p><u>Services:</u></p>
+                    <%appointment.services.each do |service|%>
+                    <p><%=service.name.capitalize%> : $<%='%.2f' % service.price.to_f%></p>
+                    <%end%>
+                    <h5>Total: $<%='%.2f' % appointment.total.to_f%></h5>
+                      <div class="card-action">
+                            <a class="btn card-btn" href="#">Edit Appointment</a>
+                            <a class="btn card-btn" href="/clients/<%=appointment.client.id%>">View Client</a>
+                      </div>
+                </div>
+            
+            </div>
+       <%end%>
+       
     </div>
+
+   
 </div>
