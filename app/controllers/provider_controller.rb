@@ -36,7 +36,45 @@ class ProviderController < ApplicationController
     end
 
     patch '/providers/:id' do
+        if !logged_in?
+            redirect to '/login'
+        elsif current_user.instance_of?(Provider) && current_user.id == params[:id].to_i
+            current_user.business_name = params[:business_name]
+            current_user.name = params[:name]
+            current_user.email = params[:email]
+            current_user.phone_number = params[:phone_number]
+            current_user.location = params[:location]
+            if current_user.save
+                redirect to "/clients/#{params[:id]}"
+            else
+                redirect to '/failure'
+            end
+        else
+            redirect to "/providers/#{params[:id]}"
+        end
+    end
 
+    get '/providers/:id/new_service' do
+        if !logged_in?
+
+        elsif current_user.instance_of?(Provider) && current_user.id == params[:id].to_i
+            erb :'providers/new_service'
+        else
+        end
+
+    end
+
+    post '/providers/new_service' do
+        if !logged_in?
+            redirect to '/login'
+        else
+            current_user.services << Service.create(
+                name: params[:name], 
+                price: params[:price].remove("$").to_d, 
+                description: params[:description] 
+            )
+            redirect to "/providers/#{current_user.id}"
+        end
     end
 
     

@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row center top-spaced">
+        <h1>Add a new Service!</h1>
+    </div>
+    <div class="container">
+        <form class="registration-form" action="/providers/new_service" method="post">
+           <div class="row">
+                <div class="input-field">
+                    <input type="text" name="name" id="name" class="validate">
+                    <label for="name">Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field text-area">
+                    <input type="text" name="description" id="description" class="validate">
+                    <label for="description">Description</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <input type="text" name="price" id="price" class="validate">
+                    <label class="active" for="price">Price $0.00</label>
+                </div>
+            </div>
+         
+             <div class="row center">
+                <input class="btn-large" type="submit" value="Add Service">
+            </div>
+        </form>
+    </div>    
+
+
+</div>
