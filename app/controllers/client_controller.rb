@@ -18,7 +18,7 @@ class ClientController < ApplicationController
     get '/clients/:id' do
         if !logged_in?
             redirect to '/login'
-        elsif current_user.instance_of?(Client) && current_user.id == params[:id].to_i
+        elsif has_permission?
             erb :'clients/profile'
         else
             @client = Client.find(params[:id])
@@ -29,7 +29,7 @@ class ClientController < ApplicationController
     get '/clients/:id/edit' do
         if !logged_in?
             redirect to '/login'
-        elsif current_user.instance_of?(Client) && current_user.id == params[:id].to_i
+        elsif has_permission?
             erb :'clients/edit'
         else
             redirect to '/failure'
@@ -40,7 +40,7 @@ class ClientController < ApplicationController
     patch '/clients/:id' do
         if !logged_in?
             redirect to '/login'
-        elsif current_user.instance_of?(Client) && current_user.id == params[:id].to_i
+        elsif has_permission?
             current_user.name = params[:name]
             current_user.email = params[:email]
             current_user.phone_number = params[:phone_number]
@@ -52,6 +52,12 @@ class ClientController < ApplicationController
             end
         else
             redirect to "/clients/#{params[:id]}"
+        end
+    end
+
+    helpers do
+        def has_permission?
+            current_user.instance_of?(Client) && current_user.id == params[:id].to_i
         end
     end
 

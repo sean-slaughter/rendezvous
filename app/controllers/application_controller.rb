@@ -61,7 +61,6 @@ class ApplicationController < Sinatra::Base
         end
       end
     end
-  
 
 
     def current_user

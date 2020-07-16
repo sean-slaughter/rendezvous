@@ -17,7 +17,7 @@ class ProviderController < ApplicationController
     get '/providers/:id' do
         if !logged_in?
             redirect to '/login'
-        elsif current_user.instance_of?(Provider) && current_user.id == params[:id].to_i
+        elsif has_permission?
             erb :'providers/profile'
         else
             @provider = Provider.find(params[:id])
@@ -28,7 +28,7 @@ class ProviderController < ApplicationController
     get '/providers/:id/edit' do
         if !logged_in?
             redirect to '/login'
-        elsif current_user.instance_of?(Provider) && current_user.id == params[:id].to_i
+        elsif has_permission?
             erb :'providers/edit'
         else
             redirect to '/failure'
@@ -38,7 +38,7 @@ class ProviderController < ApplicationController
     patch '/providers/:id' do
         if !logged_in?
             redirect to '/login'
-        elsif current_user.instance_of?(Provider) && current_user.id == params[:id].to_i
+        elsif has_permission?
             current_user.business_name = params[:business_name]
             current_user.name = params[:name]
             current_user.email = params[:email]
@@ -56,14 +56,25 @@ class ProviderController < ApplicationController
 
     get '/providers/:id/new_service' do
         if !logged_in?
-
-        elsif current_user.instance_of?(Provider) && current_user.id == params[:id].to_i
+            redirect to '/login'
+        elsif has_permission?
             erb :'providers/new_service'
         else
+            redirect to '/failure'
         end
 
     end
 
+    get '/providers/:id/:service_id/edit' do
+        if !logged_in?
+            redirect to 'login'
+        elsif has_permission?
+            erb :'/providers/edit_service'
+        else
+            redirect to '/failure'
+        end
+    end
+    
     post '/providers/new_service' do
         if !logged_in?
             redirect to '/login'
@@ -77,10 +88,10 @@ class ProviderController < ApplicationController
         end
     end
 
-    
-
-    
-
-
+    helpers do
+        def has_permission?
+            current_user.instance_of?(Provider) && current_user.id == params[:id].to_i
+        end
+    end
 
 end
