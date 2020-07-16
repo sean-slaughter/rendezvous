@@ -25,6 +25,24 @@ class ProviderController < ApplicationController
         end
     end
 
+    get '/providers/:id/edit' do
+        if !logged_in?
+            redirect to '/login'
+        elsif current_user.instance_of?(Provider) && current_user.id == params[:id].to_i
+            erb :'providers/edit'
+        else
+            redirect to '/failure'
+        end
+    end
+
+    patch '/providers/:id' do
+
+    end
+
+    
+
+    
+
 
 
 end

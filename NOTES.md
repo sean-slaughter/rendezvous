@@ -20,8 +20,21 @@ end of day 7.15:
 - Provider and client notified on appointment cancellation
 
 
+TODO for 7.16
+Validation of single email address
+Edit Provider Profile
+Add Services
+Start working on appointments if time
+
+GENERAL TODO
+Error handling
+Provider Search
+
+
 things that would be nice:
 
+Provider can add icon to services
+Provider calendar
 less boring landing page
 profile pages seem boring
 
