@@ -54,39 +54,6 @@ class ProviderController < ApplicationController
         end
     end
 
-    get '/providers/:id/new_service' do
-        if !logged_in?
-            redirect to '/login'
-        elsif has_permission?
-            erb :'providers/new_service'
-        else
-            redirect to '/failure'
-        end
-
-    end
-
-    get '/providers/:id/:service_id/edit' do
-        if !logged_in?
-            redirect to 'login'
-        elsif has_permission?
-            erb :'/providers/edit_service'
-        else
-            redirect to '/failure'
-        end
-    end
-    
-    post '/providers/new_service' do
-        if !logged_in?
-            redirect to '/login'
-        else
-            current_user.services << Service.create(
-                name: params[:name], 
-                price: params[:price].remove("$").to_d, 
-                description: params[:description] 
-            )
-            redirect to "/providers/#{current_user.id}"
-        end
-    end
 
     helpers do
         def has_permission?

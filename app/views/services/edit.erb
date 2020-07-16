@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="row center top-spaced">
+        <h1>Edit Service</h1>
+         <form action="/services/<%=@service.id%>" method="post">
+            <input id="hidden" type="hidden" name="_method" value="DELETE">
+            <input type="submit" value="Delete this service" class="btn-large">
+        </form>
+    </div>
+      <div class="container">
+        <form class="edit-form" action="/services/<%=@service.id%>" method="post">
+        <input id="hidden" type="hidden" name="_method" value="PATCH">
+           <div class="row">
+                <div class="input-field">
+                    <input type="text" name="name" id="name" value="<%=@service.name%>" class="validate">
+                    <label for="name">Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field text-area">
+                    <textarea id="description" name="description" class="materialize-textarea"><%=@service.description%></textarea>
+                    <label class="active" for="description">Description</label>
+                </div>
+            </div>
+             <div class="row">
+                <div class="input-field">
+                    <input type="text" name="price" id="price" value="$<%='%.2f' % @service.price.to_f%>" class="validate">
+                    <label for="price">Price ($0.00)</label>
+                </div>
+            </div>
+             <div class="row center">
+                <input class="btn-large" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</div>

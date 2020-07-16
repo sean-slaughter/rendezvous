@@ -27,8 +27,11 @@ Add Services
 Start working on appointments if time
 
 GENERAL TODO
+Appointment functionality
 Error handling
 Provider Search
+Make all models deletable
+Fix all failure routes
 
 
 things that would be nice:
