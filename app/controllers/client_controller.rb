@@ -6,6 +6,7 @@ class ClientController < ApplicationController
     end
 
     post '/clients' do
+        params[:email] = params[:email].downcase
         client = Client.new(params)
         if client.save
             login(client.email, client.password)

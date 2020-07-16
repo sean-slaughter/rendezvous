@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200715174636) do
+ActiveRecord::Schema.define(version: 20200716211126) do
 
   create_table "appointment_services", force: :cascade do |t|
     t.integer "appointment_id"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20200715174636) do
     t.boolean  "confirmed"
     t.integer  "client_id"
     t.integer  "provider_id"
+    t.boolean  "notified"
   end
 
   create_table "clients", force: :cascade do |t|

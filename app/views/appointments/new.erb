@@ -1,1 +1,63 @@
-New Client
+<div class="container">
+    <div class="row center top-spaced-bar">
+        <h1>Book an appointment at <%=@provider.business_name%></h1>
+        <span class="flex-text">We will send your request for an appointment right away, you'll be notified 
+        on your profile page as soon as it gets confirmed by the provider.
+        </span>
+    </div>
+    <div class="row center">
+        <form class="appointment-form" action="/appointments/<%=@provider.id%>" method="post">
+          <div class="input-field">
+            <input type="text" name="date" value="Date" class="datepicker" id="date">
+          </div>
+          <div class="input-field">
+            <input type="text" name="time" value="Time" class="timepicker" id="time">
+          </div>
+           <div class="input-field">
+                <%@provider.services.each do |service|%>
+                    <p>
+                    <label>
+                    <input type="checkbox" value="<%=service.id%>" name="service_ids[]">
+                    <span><%=service.name%>     $<%='%.2f' % service.price.to_f%></span>
+                    </label>
+                    </p>
+                <% end %>
+            <label>Services</label>
+          </div>
+          <br>
+          <br>
+          <input class= "btn-large" type="submit" value="Request Appointment" id="submit">
+         
+
+
+        
+        
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instance = M.FormSelect.init(elems, {
+
+    });
+  });
+ document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {
+        format: 'mm/dd/yyyy'
+    });
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.timepicker');
+    var instances = M.Timepicker.init(elems, {
+
+    });
+  });
+    
+
+</script>

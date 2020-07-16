@@ -11,5 +11,8 @@ class Appointment < ActiveRecord::Base
             output += service.price
         end
         output
-    end 
+    end
+    
+    
+    
 end

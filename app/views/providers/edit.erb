@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row center top-spaced">
+    <div class="row center top-spaced-bar">
         <h2>Edit <%=current_user.business_name%></h2>
           <form action="/providers/<%=current_user.id%>" method="post">
         <input id="hidden" type="hidden" name="_method" value="DELETE">
@@ -54,7 +54,7 @@
         <div class="container services">
             <%current_user.services.each do |service|%>
                 <div class="col s12 m6 center-align">
-                <div class="card grey lighten-3 service-card">
+                <div class="card white service-card">
                     <span class="card-title"><u><%=service.name%></u></span>
                     <div class="card-content">
                         <p class="flex-text"><%=service.description%></p>

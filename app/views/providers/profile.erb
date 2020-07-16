@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row center top-spaced">
+    <div class="row center top-spaced-bar">
        <div class="row center">
             <h2><%=current_user.business_name%></h2>
             <a class="btn-small" href="/providers/<%=current_user.id%>/edit">Edit My Info</a>
@@ -10,7 +10,7 @@
             </div>
         <%else%>
         <div class="row center">
-                <p class="flow-text">Here is a list of all of your upcoming appointments:</p>
+                <p class="flow-text">Your upcoming appointments:</p>
         </div>
         <% end %>
 
@@ -18,7 +18,7 @@
        <%current_user.appointments.each do |appointment|%>
        
             <div class="col s12 m12 l6">
-                <div class="card grey lighten-3 appointment-card">
+                <div class="card white appointment-card">
                     <header class="container appointment-card-name">
                         <span class="card-title"><u><%=appointment.client.name%></u></span>
                         <p>Date: <%=appointment.date.strftime("%A %D")%></p>

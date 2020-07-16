@@ -35,7 +35,7 @@ Fix all failure routes
 
 
 things that would be nice:
-
+Provider can edit availablity
 Provider can add icon to services
 Provider calendar
 less boring landing page

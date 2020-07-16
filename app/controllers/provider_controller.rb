@@ -5,6 +5,7 @@ class ProviderController < ApplicationController
     end
 
     post '/providers' do
+        params[:email] = params[:email].downcase
         provider = Provider.new(params)
         if provider.save
             login(provider.email, provider.password)

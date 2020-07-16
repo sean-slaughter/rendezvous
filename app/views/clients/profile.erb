@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row center top-spaced">
+    <div class="row center top-spaced-bar">
        <div class="row center">
         <h2>Hello, <%=current_user.name%>!</h2>
         <a class="btn-small" href="/clients/<%=current_user.id%>/edit">Edit My Info</a>
@@ -19,10 +19,10 @@
     <div class="row center">
        <%current_user.appointments.each do |appointment|%>
        
-            <div class="col s12 m12 l6">
-                <div class="card grey lighten-3 appointment-card">
+            <div class="col s12 m6 l6">
+                <div class="card grey white appointment-card">
                     <header class="container appointment-card-name">
-                        <span class="card-title"><u><%=appointment.provider.business_name%></u></span>
+                        <span class="card-title"><%=appointment.provider.business_name%></span>
                         <p>Date: <%=appointment.date.strftime("%A %D")%></p>
                         <p>Time: <%=appointment.date.strftime("%r")%></p>
                     </header>

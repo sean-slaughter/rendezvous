@@ -2,12 +2,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@350&display=swap');
 body{
   font-family: 'Josefin Sans', sans-serif;
-  background-color: #eee2dc;
-  background-image: linear-gradient(135deg, #eee2dc 10%, #eeddcc 74%);
+  background-color: #FDFDF6
 }
 
 .btn-large{
-  background-color : #AC3B61; 
+  background-color : #4A6163; 
   display: inline-block;
 }
 
@@ -21,12 +20,14 @@ p{
 
 .registration-form{
   padding: 30px;
-  border: 3px solid #eeddcc;
-  background-color: aliceblue;
+  background-color: white;;
 }
 
 .top-spaced{
-  margin-top: 150px;
+  margin-top: 50px;
+}
+.top-spaced-bar{
+  margin-top: 100px;
 }
 
 .appointment-card{
@@ -39,15 +40,15 @@ p{
   padding-bottom: 30px;
 }
 .client-card-name{
-  border: 5px solid lightgray;
+  border: 1px ridge #4A6163;
 }
 .appointment-card-name{
-  border: 2px solid lightgray;
+  border: 1px ridge #4A6163;
   padding-top: 7px;
 }
 .btn-small{
   margin-bottom: 30px;
-  background-color : #AC3B61; 
+  background-color : #4A6163; 
   display: inline-block;
 }
 
@@ -58,13 +59,17 @@ p{
 
 .edit-form{
   padding: 30px;
-  border: 3px solid #eeddcc;
-  background-color: aliceblue;
+  background-color: white;
+  margin-bottom: 100px;
+}
+.appointment-form{
+  padding: 30px;
+  background-color: white;
   margin-bottom: 100px;
 }
 
 .btn{
-  background-color : #AC3B61; 
+  background-color : #4A6163; 
 }
 
 .card-btn{

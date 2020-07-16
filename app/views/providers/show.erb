@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="row center top-spaced">
-        <div class="card grey lighten-3 client-card">
+    <div class="row center top-spaced-bar">
+        <div class="card white client-card">
             <header class="container client-card-name">
                 <h2><%=@provider.business_name%></h2>
             </header>
@@ -16,8 +16,8 @@
     <div class="row center">
         <h3>Services:</h3>
         <%@provider.services.each do |service|%>
-            <div class="col s12 m6 center-align">
-            <div class="card grey lighten-3 service-card">
+            <div class="col s12 m6 l6 center-align">
+            <div class="card white service-card">
                 <span class="card-title"><u><%=service.name%></u></span>
                 <div class="card-content">
                     <p class="flex-text"><%=service.description%></p>
@@ -29,7 +29,7 @@
         
     </div>
     <div class="row center">
-    <a class="btn-large"style="margin-bottom: 150px;" href="">Book an Appointment</a>
+    <a class="btn-large"style="margin-bottom: 150px;" href="/appointments/<%=@provider.id%>/new">Book an Appointment</a>
     </div>
 
     
