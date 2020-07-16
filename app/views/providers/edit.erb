@@ -1,6 +1,11 @@
 <div class="container">
     <div class="row center top-spaced">
         <h2>Edit <%=current_user.business_name%></h2>
+          <form action="/providers/<%=current_user.id%>" method="post">
+        <input id="hidden" type="hidden" name="_method" value="DELETE">
+        <input class="btn-large" type="submit" value="Delete My Account">
+        
+        </form> 
     </div>
    
         <form class="edit-form" action="/providers/<%=current_user.id%>" method="post">

@@ -57,6 +57,7 @@ class ApplicationController < Sinatra::Base
             redirect to '/failure'
           end
         else
+       
           redirect to '/failure'
         end
       end
@@ -69,6 +70,12 @@ class ApplicationController < Sinatra::Base
        elsif session[:type] == "provider"
         @current_user ||= Provider.find(session[:user_id]) if session[:user_id]
        end
+    end
+
+    def check_login
+      if !logged_in?
+        redirect to '/login'
+      end
     end
 
     def logout

@@ -45,7 +45,7 @@ class ProviderController < ApplicationController
             current_user.phone_number = params[:phone_number]
             current_user.location = params[:location]
             if current_user.save
-                redirect to "/clients/#{params[:id]}"
+                redirect to "/providers/#{params[:id]}"
             else
                 redirect to '/failure'
             end
@@ -53,7 +53,15 @@ class ProviderController < ApplicationController
             redirect to "/providers/#{params[:id]}"
         end
     end
-
+    
+    delete '/providers/:id' do
+        if !logged_in?
+            redirect to '/login'
+        elsif has_permission?
+            current_user.destroy
+            redirect to '/logout'
+        end
+    end
 
     helpers do
         def has_permission?

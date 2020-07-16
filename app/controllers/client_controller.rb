@@ -16,9 +16,8 @@ class ClientController < ApplicationController
     end
 
     get '/clients/:id' do
-        if !logged_in?
-            redirect to '/login'
-        elsif has_permission?
+        check_login
+        if has_permission?
             erb :'clients/profile'
         else
             @client = Client.find(params[:id])
@@ -27,9 +26,8 @@ class ClientController < ApplicationController
     end
 
     get '/clients/:id/edit' do
-        if !logged_in?
-            redirect to '/login'
-        elsif has_permission?
+        check_login
+        if has_permission?
             erb :'clients/edit'
         else
             redirect to '/failure'
@@ -38,9 +36,8 @@ class ClientController < ApplicationController
             
 
     patch '/clients/:id' do
-        if !logged_in?
-            redirect to '/login'
-        elsif has_permission?
+        check_login
+        if has_permission?
             current_user.name = params[:name]
             current_user.email = params[:email]
             current_user.phone_number = params[:phone_number]
@@ -52,6 +49,14 @@ class ClientController < ApplicationController
             end
         else
             redirect to "/clients/#{params[:id]}"
+        end
+    end
+
+    delete '/clients/:id' do
+        check_login
+        if has_permission?
+            current_user.destroy
+            redirect to '/logout'
         end
     end
 

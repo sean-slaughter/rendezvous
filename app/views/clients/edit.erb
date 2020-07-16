@@ -5,7 +5,12 @@
        </div>
     </div>
       <div class="row center">
-        <h4>Edit Your Information</h4>       
+        <h4>Edit Your Information</h4>
+        <form action="/clients/<%=current_user.id%>" method="post">
+        <input id="hidden" type="hidden" name="_method" value="DELETE">
+        <input class="btn-large" type="submit" value="Delete My Account">
+        
+        </form>       
       </div>
     </div>
     <div class="container">
