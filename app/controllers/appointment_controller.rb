@@ -32,9 +32,9 @@ class AppointmentController < ApplicationController
         end
     end
 
-    post '/appointments/:id' do 
-        binding.pry
-        provider = Provider.find(params[:id])
+    post '/appointments/:provider_id' do 
+        check_login
+        provider = Provider.find(params[:provider_id])
         date = "#{params[:date]} #{params[:time]}"
         provider.appointments.build(
 
@@ -42,7 +42,9 @@ class AppointmentController < ApplicationController
             service_ids: params[:service_ids],
             date: DateTime.strptime(date, "%m/%d/%Y %H:%M %p"),
             confirmed: false,
-            notified: false
+            notified: false,
+            changed: false,
+            cancelled: false
 
         )
         if provider.save
@@ -51,5 +53,29 @@ class AppointmentController < ApplicationController
             redirect to '/failure'
         end
     end
+
+    get '/appointments/:id/edit' do
+        check_login
+        @appointment = Appointment.find(params[:id])
+        if @appointment.provider == current_user || @appointment.client == current_user
+            erb :'appointments/edit'
+        else
+            redirect to '/failure'
+        end
+    end
+
+    patch '/appointments/:id' do
+        check_login
+        appointment = Appointment.find(params[:id])
+        change_request = @appointment.provider.appointments << Appointment.create(
+            client: @appointment.client
+            services: @appointment.services
+            date: @appointment.date
+            notified: @appointment.notified
+            changed: true
+            cancelled: false
+        )
+    end
+        
 
 end
