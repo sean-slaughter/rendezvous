@@ -8,6 +8,29 @@
             <div class="row center">
                 <p class="flow-text">You currently don't have any appointments.</p>
             </div>
+        <% elsif !@unconfirmed_appointments.empty?%>
+            <p class="flow-text">You have <%=@unconfirmed_appointments.size%> unconfirmed appointments!</p>  
+            <%@unconfirmed_appointments.each do |appointment|%>
+                <div class="col s12 m12 l6">
+                <div class="card white appointment-card">
+                    <header class="container appointment-card-name">
+                        <span class="card-title"><%=appointment.client.name%></span>
+                        <p><%=appointment.date.strftime("%A %B %d, %Y")%></p>
+                        <p><%=appointment.date.strftime("%l:%M %p")%></p>
+                    </header>
+                    <p><u>Services:</u></p>
+                    <%appointment.services.each do |service|%>
+                    <p><%=service.name.capitalize%> : $<%='%.2f' % service.price.to_f%></p>
+                    <%end%>
+                    <h5>Total: $<%='%.2f' % appointment.total.to_f%></h5>
+                      <div class="card-action">
+                            <a class="btn card-btn" href="#">Confirm</a>
+                            <a class="btn card-btn" href="#">Deny</a>
+                            <a class="btn card-btn" href="/clients/<%=appointment.client.id%>">View Client</a>
+                      </div>
+                </div>
+                </div>
+            <% end %>
         <%else%>
         <div class="row center">
                 <p class="flow-text">Your upcoming appointments:</p>

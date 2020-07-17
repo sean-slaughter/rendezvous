@@ -32,6 +32,21 @@ Provider confirms or denys appointment
 If confirmed user gets notification of confirmed appointment
 Appointment editing
 
+TODO for 7.17
+
+Provider gets notification of appointment request
+        - check appointments for unconfirmed
+        - display unconfirmed appointment with buttons
+Provider confirms or denys appointment
+        -provider clicks confirm
+                -appointment becomes confirmed
+                -added to visible provider appointments
+        -provider clicks deny
+                -appointment object destroyed
+                
+If confirmed user gets notification of confirmed appointment
+Appointment editing
+
 
 GENERAL TODO
 Appointment functionality

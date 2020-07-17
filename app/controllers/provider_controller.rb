@@ -19,6 +19,10 @@ class ProviderController < ApplicationController
         if !logged_in?
             redirect to '/login'
         elsif has_permission?
+            @unconfirmed_appointments = []
+            if current_user.unconfirmed_appointments
+                @unconfirmed_appointments = current_user.unconfirmed_appointments
+            end
             erb :'providers/profile'
         else
             @provider = Provider.find(params[:id])
