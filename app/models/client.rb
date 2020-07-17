@@ -6,8 +6,8 @@ class Client < ActiveRecord::Base
     has_many :appointments
     has_many :providers, through: :appointments
 
-    def new_confirmation
+    def new_confirmations
         self.appointments.select{|appointment| appointment.confirmed == true && appointment.notified == false}
     end
-    
+
 end

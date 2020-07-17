@@ -4,6 +4,8 @@
         <h2>Hello, <%=current_user.name%>!</h2>
         <a class="btn-small" href="/clients/<%=current_user.id%>/edit">Edit My Info</a>
        </div>
+
+
  
 <%if current_user.appointments.empty?%>
             <div class="row center">

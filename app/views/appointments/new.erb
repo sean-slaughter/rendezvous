@@ -2,7 +2,7 @@
     <div class="row center top-spaced-bar">
         <h1>Book an appointment at <%=@provider.business_name%></h1>
         <span class="flex-text">We will send your request for an appointment right away, you'll be notified 
-        on your profile page as soon as it gets confirmed by the provider.
+        on your profile page as soon as it gets confirmed.
         </span>
     </div>
     <div class="row center">
@@ -13,16 +13,19 @@
           <div class="input-field">
             <input type="text" name="time" value="Time" class="timepicker" id="time">
           </div>
-           <div class="input-field">
+              <label>Services</label>
                 <%@provider.services.each do |service|%>
+                <div class="input-field">
+                <div class="col s3">
                     <p>
                     <label>
                     <input type="checkbox" value="<%=service.id%>" name="service_ids[]">
                     <span><%=service.name%>     $<%='%.2f' % service.price.to_f%></span>
                     </label>
                     </p>
+                </div>
                 <% end %>
-            <label>Services</label>
+            
           </div>
           <br>
           <br>
@@ -35,12 +38,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
 
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('select');
-    var instance = M.FormSelect.init(elems, {
-
-    });
-  });
+ 
  document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.datepicker');
     var instances = M.Datepicker.init(elems, {

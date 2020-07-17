@@ -19,7 +19,10 @@ class ClientController < ApplicationController
     get '/clients/:id' do
         check_login
         if has_permission?
-            erb :'clients/profile'
+            if current_user.new_confirmations
+                @new_confirmations = current_user.new_confirmations
+                erb :'clients/profile'
+            end
         else
             @client = Client.find(params[:id])
             erb :'clients/show'

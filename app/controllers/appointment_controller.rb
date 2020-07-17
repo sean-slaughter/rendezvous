@@ -33,6 +33,7 @@ class AppointmentController < ApplicationController
     end
 
     post '/appointments/:id' do 
+        binding.pry
         provider = Provider.find(params[:id])
         date = "#{params[:date]} #{params[:time]}"
         provider.appointments.build(
