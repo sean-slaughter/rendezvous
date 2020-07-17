@@ -20,9 +20,9 @@
             <div class="col s12 m12 l6">
                 <div class="card white appointment-card">
                     <header class="container appointment-card-name">
-                        <span class="card-title"><u><%=appointment.client.name%></u></span>
-                        <p>Date: <%=appointment.date.strftime("%A %D")%></p>
-                        <p>Time: <%=appointment.date.strftime("%r")%></p>
+                        <span class="card-title"><%=appointment.client.name%></span>
+                        <p><%=appointment.date.strftime("%A %B %d, %Y")%></p>
+                        <p><%=appointment.date.strftime("%l:%M %p")%></p>
                     </header>
                     <p><u>Services:</u></p>
                     <%appointment.services.each do |service|%>

@@ -47,7 +47,7 @@ p{
   padding-top: 7px;
 }
 .btn-small{
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   background-color : #4A6163; 
   display: inline-block;
 }
@@ -75,6 +75,9 @@ p{
 .card-btn{
   margin-top: 5px;
   margin-bottom: 5px;
+}
+h5.total{
+  font-weight: 550;
 }
 
 
