@@ -26,6 +26,13 @@ Edit Provider Profile
 Add Services
 Start working on appointments if time
 
+end of day 7.16
+Provider gets notification of appointment request
+Provider confirms or denys appointment
+If confirmed user gets notification of confirmed appointment
+Appointment editing
+
+
 GENERAL TODO
 Appointment functionality
 Error handling
