@@ -8,26 +8,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="/stylesheets/main.css" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
    
 </head>
 <body>
 <%if logged_in?%>
-<header class="top-nav">
-  <div class="navbar-fixed"> 
       <nav>
         <div class="nav-wrapper" style="background-color:#FDFDF6">
-        
-          <a href="#" class="brand-logo"> <img src="/images/blue_logo.png" style="height:45px; margin-left:50px; margin-top:8px;"> </a>
-           <ul id="nav-mobile" class="right hide-on-med-and-down" style="margin-right: 50px;">
-            <li><a style="color:#4A6163" href="/providers">Search Providers</a></li>
+          <a href="#!" class="brand-logo"><img src="/images/blue_logo.png" style="height:45px; margin-left:50px; margin-top:8px;"> </a>
+          <a href="#" data-target="mobile-demo" class="right sidenav-trigger"><i class="material-icons" style="color:#4A6163">menu</i></a>
+          <ul class="right hide-on-med-and-down">
+          <li><a style="color:#4A6163" href="/providers">Search Providers</a></li>           
             <li><a style="color:#4A6163"href="/<%=session[:type]%>s/<%=current_user.id%>">My Profile</a></li>
             <li><a style="color:#4A6163"href="/logout">Log Out</a></li>
           </ul>
         </div>
       </nav>
-  </div>
-</header>
+       <ul class="sidenav" id="mobile-demo">
+          <li>
+          <div class="background" ></div>
+            <div class="user-view"style="background-color:#4A6163">
+                    <h6 class="white-text"><%=current_user.name%></h6>
+                    <span class= "white-text"><%=current_user.email%></span>
+            </div>
+          </li>
+            <li><a style="color:#4A6163; margin-top:20px;" href="/providers">Search Providers</a></li>           
+            <li><a style="color:#4A6163"href="/<%=session[:type]%>s/<%=current_user.id%>">My Profile</a></li>
+            <li><a style="color:#4A6163"href="/logout">Log Out</a></li>
+      </ul>
+     
+
+
 <%end%>
 
 <div>
@@ -36,6 +47,11 @@
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+<script>
+  const slide_menu = document.querySelectorAll(".sidenav");
+  M.Sidenav.init(slide_menu, {
+    edge: 'right'
+  });
+</script>
 </body>
 </html>
