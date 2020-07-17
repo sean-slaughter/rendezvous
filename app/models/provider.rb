@@ -7,8 +7,7 @@ class Provider < ActiveRecord::Base
     has_many :clients, through: :appointments
 
     def unconfirmed_appointments
-        unconfirmed_appointments = self.appointments.select{|appointment| appointment.confirmed == false }
-        binding.pry
+        unconfirmed_appointments = self.appointments.select{|appointment| appointment.confirmed == false}
     end
 
 
