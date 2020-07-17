@@ -10,5 +10,13 @@ class Provider < ActiveRecord::Base
         unconfirmed_appointments = self.appointments.select{|appointment| appointment.confirmed == false}
     end
 
+    def changed_appointments
+        changed_appointments = self.appointments.select{|appointment| appointment.confirmed == true}
+    end
+
+    def cancelled_appointments
+        cancelled_appointments = self.appointments.select{|appointment| appointment.cancelled == true}
+    end 
+
 
 end

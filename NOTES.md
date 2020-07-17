@@ -48,6 +48,10 @@ If confirmed user gets notification of confirmed appointment
 Appointment editing
 
 
+Make appointments editable
+Sort appointments by date on load
+
+
 GENERAL TODO
 Appointment functionality
 Error handling
@@ -57,6 +61,7 @@ Fix all failure routes
 
 
 things that would be nice:
+Provider can search appointments by client
 Provider can edit availablity
 Provider can add icon to services
 Provider calendar
