@@ -21,8 +21,8 @@ class ClientController < ApplicationController
         if has_permission?
             if current_user.new_confirmations
                 @new_confirmations = current_user.new_confirmations
-                erb :'clients/profile'
             end
+            erb :'clients/profile'
         else
             @client = Client.find(params[:id])
             erb :'clients/show'

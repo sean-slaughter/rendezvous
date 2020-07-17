@@ -5,7 +5,19 @@
         <a class="btn-small" href="/clients/<%=current_user.id%>/edit">Edit My Info</a>
        </div>
 
-
+<% if !@new_confirmations.empty?%>
+    <div class="row center">
+        <%@new_confirmations.each do |appointment|%>
+        <p class="flow-text green-text">Your appointment at <%=appointment.provider.business_name%> 
+        on <%=appointment.date.strftime("%A %B %d, %Y")%> has been confirmed! You can now find it in your upcoming appointments.
+        Scroll down for more information.
+        </p>
+        <%appointment.notified = true%>
+        <%appointment.save%>
+    </div>
+    <% end %>
+  
+<% end %>
  
 <%if current_user.appointments.empty?%>
             <div class="row center">
@@ -22,36 +34,35 @@
 
     <div class="row center">
         <%current_user.appointments.each do |appointment|%>
-            <div class="col s12 m6 l6 xl6">
-                <div class="card small white">
-                    <div class="card-content">
-                        <span class="card-title activator"><%=appointment.provider.business_name%>
-                        <i class="material-icons right">more_vert</i></span>
-                        <br>
-                        <h6 class="flow-text"><%=appointment.date.strftime("%A %B %d, %Y")%></h6>
-                        <h6><%=appointment.date.strftime("%l:%M %p")%></h6>
+            <% if appointment.confirmed %>
+                <div class="col s12 m6 l6 xl6">
+                    <div class="card small white">
+                        <div class="card-content">
+                            <span class="card-title activator"><%=appointment.provider.business_name%>
+                            <i class="material-icons right">more_vert</i></span>
+                            <br>
+                            <h6 class="flow-text"><%=appointment.date.strftime("%A %B %d, %Y")%></h6>
+                            <h6><%=appointment.date.strftime("%l:%M %p")%></h6>
+                        </div>
+                        <div class="card-action">
+                        <a href="/" class="btn-small">Edit Appointment</a>
+                        <a href="/providers/<%=appointment.provider.id%>" class="btn-small">View Provider</a>
+                        </div>
+                    <div class="card-reveal">
+                        <span class="card-title">
+                        <i class="material-icons right">close</i></span>
+                        <p><u>Services:</u></p>
+                        <%appointment.services.each do |service|%>
+                        <p><%=service.name.capitalize%> : $<%='%.2f' % service.price.to_f%></p>
+                        <%end%>
+                        <h5 class="total">Total: $<%='%.2f' % appointment.total.to_f%></h5>
                     </div>
-                    <div class="card-action">
-                    <a href="/" class="btn-small">Edit Appointment</a>
-                    <a href="/providers/<%=appointment.provider.id%>" class="btn-small">View Provider</a>
                     </div>
-                <div class="card-reveal">
-                    <span class="card-title">
-                    <i class="material-icons right">close</i></span>
-                    <p><u>Services:</u></p>
-                    <%appointment.services.each do |service|%>
-                    <p><%=service.name.capitalize%> : $<%='%.2f' % service.price.to_f%></p>
-                    <%end%>
-                    <h5 class="total">Total: $<%='%.2f' % appointment.total.to_f%></h5>
                 </div>
-                </div>
-            </div>
-            
-         
-        <%end%>
+            <%end%>
+        <% end %> 
 <%end%>
-    </div>
-        
+    </div>     
 </div>
 
 
