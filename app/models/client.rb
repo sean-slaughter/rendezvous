@@ -7,20 +7,20 @@ class Client < ActiveRecord::Base
     has_many :providers, through: :appointments
 
     #new appointment confirmation/denial
-    def appointment_confirmations
+    def new_confirmations
         self.appointments.select{|appointment| appointment.confirmed == true && appointment.notified == false && appointment.client_request_change == false}
     end
 
-    def appointment_denials
+    def new_denials
         self.appointments.select{|appointment| appointment.confirmed == false && appointment.client_request_change == false && appointment.provider_cancelled == true}
     end
 
     #existing appointment confirmation/denial
-    def change_confirmations
+    def new_change_confirmations
         self.appointments.select{|appointment| appointment.confirmed == true && appointment.notified == false && appointment.client_request_change == true}
     end
 
-    def change_denials
+    def new_change_denials
         self.appointments.select{|appointment| appointment.confirmed == false && appointment.client_request_change == true && appointment.provider_cancelled == true}
     end
     

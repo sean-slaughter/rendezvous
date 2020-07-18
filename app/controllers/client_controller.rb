@@ -72,20 +72,20 @@ class ClientController < ApplicationController
         end
 
         def get_changes
-            @confirmed_appointments = []
-            @unconfirmed_appointments = []
-            @changed_appointments = []
-            @new_cancellations = []
+            @new_confirmations = []
             @new_denials = []
+            @new_change_confirmations = []
             @new_change_denials = []
-            @new_request_for_change = []
-            @new_request_for_change = current_user.new_request_for_change if current_user.new_request_for_change
+            @unconfirmed_changes = []
+            @new_cancellations = []
+            @confirmed_appointments = []
+            @confirmed_appointments = current_user.confirmed_appointments if current_user.confirmed_appointments
             @new_cancellations = current_user.new_cancellations if current_user.new_cancellations
             @new_change_denials = current_user.new_change_denials if current_user.new_change_denials
             @new_denials = current_user.new_denials if current_user.new_denials
             @new_confirmations = current_user.new_confirmations if current_user.new_confirmations
-            @change_confirmations = current_user.change_confirmations if current_user.change_confirmations
-            @confirmed_appointments = current_user.confirmed_appointments if current_user.confirmed_appointments
+            @new_change_confirmations = current_user.new_change_confirmations if current_user.new_change_confirmations
+            @new_change_denials = current_user.new_change_denials if current_user.new_change_denials
         end
     end
 
