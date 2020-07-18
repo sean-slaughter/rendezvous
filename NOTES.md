@@ -73,6 +73,12 @@ Appointment changes can be requested but can't be confirmed
 Cancellation request/notification process
 
 
+TODO FOR 7.18
+Appointment change confirmation
+Cancellation request/notification
+Provider search
+
+
 
 GENERAL TODO
 Appointment functionality
@@ -85,7 +91,7 @@ Can't access login/registration if logged in
 
 things that would be nice:
 Client show page shows all past appointments
-Appointment changes just display difference between two appointments.
+Appointment changes just display difference between two appointments. (use reject?)
 Provider can search appointments by client
 Provider can edit availablity
 Provider can add icon to services

@@ -18,7 +18,11 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/login' do
+    if !logged_in?
        erb :login
+    else
+      redirect to "/#{session[:type]}s/#{current_user.id}"
+    end
   end
 
   post '/login' do

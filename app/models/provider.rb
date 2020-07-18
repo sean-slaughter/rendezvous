@@ -11,7 +11,7 @@ class Provider < ActiveRecord::Base
     end
 
     def changed_appointments
-        changed_appointments = self.appointments.select{|appointment| appointment.change_request == true}
+        changed_appointments = self.appointments.select{|appointment| appointment.change_request == true && appointment.confirmed == false}
     end
 
     def cancelled_appointments

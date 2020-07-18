@@ -12,19 +12,26 @@ class AppointmentController < ApplicationController
 
     get '/appointments/:id/confirm' do
         check_login
-        
-        #if appointment is new
-            #confirmed = true
-            #save
-        #else if appointment is edited
-            #confirmed = true
-            #request_change = false
-
         appointment = Appointment.find(params[:id])
         if has_permission?(appointment)
             appointment.confirmed = true
             appointment.save
             redirect to "providers/#{current_user.id}"
+        else
+            redirect to '/failure'
+        end
+    end
+
+    get '/appointments/:id/confirm_change' do
+        check_login
+        new_appointment = Appointment.find(params[:id])
+        old_appointment = current_user.get_old_appointment(new_appointment)
+        binding.pry
+        if has_permission?(new_appointment)
+            new_appointment.confirmed = true
+            new_appointment.save
+            old_appointment.destroy
+            redirect to "/#{session[:type]}s/#{current_user.id}"
         else
             redirect to '/failure'
         end

@@ -60,8 +60,8 @@
                     <%end%>
                     <h5 class="green-text">New Total: $<%='%.2f' % new_appointment.total.to_f%></h5>
                       <div class="card-action">
-                            <a class="btn card-btn" href="/appointments/<%=old_appointment.id%>/confirm">Confirm</a>
-                            <a class="btn card-btn" href="/appointments/<%=old_appointment.id%>/deny">Deny</a>
+                            <a class="btn card-btn" href="/appointments/<%=new_appointment.id%>/confirm_change">Confirm</a>
+                            <a class="btn card-btn" href="/appointments/<%=new_appointment.id%>/deny">Deny</a>
                             <a class="btn card-btn" href="/clients/<%=old_appointment.client.id%>">View Client</a>
                       </div>
                 </div>

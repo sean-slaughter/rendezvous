@@ -2,7 +2,11 @@ class ClientController < ApplicationController
 
 
     get '/clients/signup' do
-        erb :'clients/new'
+        if !logged_in?
+            erb :'clients/new'
+         else
+           redirect to "/#{session[:type]}s/#{current_user.id}"
+         end
     end
 
     post '/clients' do
@@ -21,6 +25,9 @@ class ClientController < ApplicationController
         if has_permission?
             if current_user.new_confirmations
                 @new_confirmations = current_user.new_confirmations
+            end
+            if current_user.change_confirmations
+                @change_confirmations = current_user.change_confirmations
             end
             erb :'clients/profile'
         else

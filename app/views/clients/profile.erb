@@ -18,6 +18,19 @@
     <% end %>
   
 <% end %>
+<% if !@change_confirmations.empty?%>
+    <div class="row center">
+        <%@change_confirmations.each do |appointment|%>
+        <p class="flow-text green-text">Your changes to your appointment at <%=appointment.provider.business_name%> 
+        on <%=appointment.date.strftime("%A %B %d, %Y")%> has been confirmed! You can see these changes reflected in your upcoming appointments.
+        Scroll down for more information.
+        </p>
+        <%appointment.notified = true%>
+        <%appointment.save%>
+    </div>
+    <% end %>
+  
+<% end %>
  
 <%if current_user.appointments.empty?%>
             <div class="row center">

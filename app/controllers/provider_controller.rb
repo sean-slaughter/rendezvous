@@ -1,7 +1,11 @@
 class ProviderController < ApplicationController
 
     get '/providers/signup' do
-        erb :'providers/new'
+        if !logged_in?
+            erb :'providers/new'
+         else
+            redirect to "/#{session[:type]}s/#{current_user.id}"
+         end
     end
 
     post '/providers' do
