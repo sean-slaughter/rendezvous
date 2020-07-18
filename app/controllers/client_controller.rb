@@ -78,6 +78,8 @@ class ClientController < ApplicationController
             @new_cancellations = []
             @new_denials = []
             @new_change_denials = []
+            @new_request_for_change = []
+            @new_request_for_change = current_user.new_request_for_change if current_user.new_request_for_change
             @new_cancellations = current_user.new_cancellations if current_user.new_cancellations
             @new_change_denials = current_user.new_change_denials if current_user.new_change_denials
             @new_denials = current_user.new_denials if current_user.new_denials

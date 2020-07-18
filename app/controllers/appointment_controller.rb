@@ -40,23 +40,22 @@ class AppointmentController < ApplicationController
         check_login
         appointment = Appointment.find(params[:id])
         if has_permission?(appointment)
-            appointment.cancelled = true
-            appointment.save
-            redirect to "/#{session[:type]}s/#{current_user.id}"
+            if session[:type] == "client"
+                appointment.client_cancelled = true
+                appointment.save
+                redirect to "/#{session[:type]}s/#{current_user.id}"
+            elsif session[:type] == "provider"
+                appointment.provider_cancelled = true
+                appointment.save
+                redirect to "/#{session[:type]}s/#{current_user.id}"
+            else
+                redirect to '/failure'
+            end
         else
             redirect to '/failure'
         end
     end
-    get '/appointments/:id/deny_change' do
-        check_login
-        appointment = Appointment.find(params[:id])
-        if has_permission?(appointment)
-            appointment.cancelled = true
-            appointment.save
-        else
-            redirect to '/failure'
-        end
-    end
+
 
     post '/appointments/:provider_id' do 
         check_login
@@ -150,6 +149,7 @@ class AppointmentController < ApplicationController
             redirect to '/failure'
         end
     end
+
     patch '/appointments/:id/provider_change' do
         check_login
         appointment = Appointment.find(params[:id])
