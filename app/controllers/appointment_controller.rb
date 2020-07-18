@@ -91,6 +91,7 @@ class AppointmentController < ApplicationController
                 erb :'appointments/provider_edit'
             else
                 redirect to '/failure'
+            end
         else
             redirect to '/failure'
         end
