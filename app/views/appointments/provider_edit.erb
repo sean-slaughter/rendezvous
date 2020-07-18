@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="row center top-spaced-bar">
+        <h1>Edit your with <%=@appointment.client.name%></h1>
+        <span class="flex-text">Your request to edit your appointment will be sent right away,
+        we will notify you on your profile page when it is confirmed by the client.
+        </span>
+    </div>
+    <div class="row center">
+        <form class="appointment-form" action="/appointments/<%=@appointment.id%>/provider_change" method="post">
+          <input id="hidden" type="hidden" name="_method" value="PATCH">
+          <div class="input-field">
+            <input type="text" name="date" value="<%=@appointment.date.strftime("%m/%d/%Y")%>" class="datepicker" id="date">
+          </div>
+          <div class="input-field">
+            <input type="text" name="time" value="<%=@appointment.date.strftime("%l:%M %p")%>" class="timepicker" id="time">
+          </div>
+              <label>Services</label>
+                <%@appointment.provider.services.each do |service|%>
+                <div class="input-field">
+                <div class="col s3">
+                    <p>
+                    <label>
+                    <% if @appointment.services.include?(service) %>
+                      <input type="checkbox" value="<%=service.id%>" checked="checked" name="service_ids[]">
+                    <% else %>
+                     <input type="checkbox" value="<%=service.id%>" name="service_ids[]">
+                    <% end %>
+                    <span><%=service.name%>     $<%='%.2f' % service.price.to_f%></span>
+                    </label>
+                    </p>
+                </div>
+                <% end %>
+          </div>
+          <br>
+          <br>
+          <input class= "btn-large" type="submit" value="Request Change" id="submit">
+        </form>
+        <br>
+        <form class="appointment-form" action="/appointments/<%=@appointment.id%>/provider_cancel" method="post">
+          <p class="flex-text">Would you like to cancel this appointment?</p>
+          <label>Please give <%=@appointment.provider.business_name%> your reason for cancelling.</label>
+             <div class="input-field">
+            <input type="text" name="date" placeholder="Cancellation reason" id="cancellation_message">
+           </div>
+          <input type="submit" value="Cancel This Appointment" class="btn-small">
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+
+ 
+ document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, {
+        format: 'mm/dd/yyyy'
+    });
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.timepicker');
+    var instances = M.Timepicker.init(elems, {
+
+    });
+  });
+    
+
+</script>

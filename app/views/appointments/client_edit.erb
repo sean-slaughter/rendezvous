@@ -6,7 +6,7 @@
         </span>
     </div>
     <div class="row center">
-        <form class="appointment-form" action="/appointments/<%=@appointment.id%>" method="post">
+        <form class="appointment-form" action="/appointments/<%=@appointment.id%>/client_change" method="post">
           <input id="hidden" type="hidden" name="_method" value="PATCH">
           <div class="input-field">
             <input type="text" name="date" value="<%=@appointment.date.strftime("%m/%d/%Y")%>" class="datepicker" id="date">
