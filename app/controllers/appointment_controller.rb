@@ -70,7 +70,8 @@ class AppointmentController < ApplicationController
             confirmed: false,
             notified: false,
             change_request: false,
-            cancelled: false
+            cancelled: false,
+            cancellation_message: ""
 
         )
         if provider.save
@@ -84,7 +85,12 @@ class AppointmentController < ApplicationController
         check_login
         @appointment = Appointment.find(params[:id])
         if has_permission?(@appointment)
-            erb :'appointments/edit'
+            if session[:type] == "client"
+                erb :'appointments/client_edit'
+            elsif session[:type] == "provider"
+                erb :'appointments/provider_edit'
+            else
+                redirect to '/failure'
         else
             redirect to '/failure'
         end
@@ -102,7 +108,8 @@ class AppointmentController < ApplicationController
                 notified: false,
                 confirmed: false,
                 change_request: true,
-                cancelled: false
+                cancelled: false,
+                cancellation_message: ""
             )
             if appointment.provider.save
                 redirect to "/#{session[:type]}s/#{current_user.id}"
