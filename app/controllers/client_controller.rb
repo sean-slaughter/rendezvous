@@ -23,12 +23,7 @@ class ClientController < ApplicationController
     get '/clients/:id' do
         check_login
         if has_permission?
-            if current_user.new_confirmations
-                @new_confirmations = current_user.new_confirmations
-            end
-            if current_user.change_confirmations
-                @change_confirmations = current_user.change_confirmations
-            end
+            get_changes
             erb :'clients/profile'
         else
             @client = Client.find(params[:id])
@@ -75,6 +70,22 @@ class ClientController < ApplicationController
         def has_permission?
             current_user.instance_of?(Client) && current_user.id == params[:id].to_i
         end
+
+        def get_changes
+            @confirmed_appointments = []
+            @unconfirmed_appointments = []
+            @changed_appointments = []
+            @new_cancellations = []
+            @new_denials = []
+            @new_change_denials = []
+            @new_cancellations = current_user.new_cancellations if current_user.new_cancellations
+            @new_change_denials = current_user.new_change_denials if current_user.new_change_denials
+            @new_denials = current_user.new_denials if current_user.new_denials
+            @new_confirmations = current_user.new_confirmations if current_user.new_confirmations
+            @change_confirmations = current_user.change_confirmations if current_user.change_confirmations
+            @confirmed_appointments = current_user.confirmed_appointments if current_user.confirmed_appointments
+        end
+
     end
 
 

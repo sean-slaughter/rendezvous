@@ -78,7 +78,19 @@ Appointment change confirmation
 Cancellation request/notification
 Provider search
 
+Appointment denial process:
+                action          current appointment state
+        Client requests                 FFFF
+        Provider denies                 FFFT
+        Client notified                 destroy
 
+
+                
+        Client requests change           FFTF
+        Provider denies change           FFTT
+        Client notified                  destroy, old appointment state becomes : TTFF
+
+        
 
 GENERAL TODO
 Appointment functionality

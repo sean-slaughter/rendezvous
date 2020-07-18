@@ -14,4 +14,29 @@ class Client < ActiveRecord::Base
         self.appointments.select{|appointment| appointment.confirmed == true && appointment.notified == false && appointment.change_request == true}
     end
 
+    def new_denials
+        self.appointments.select{|appointment| appointment.confirmed == false && appointment.change_request == false && appointment.cancelled == true}
+    end
+
+    def new_change_denials
+        self.appointments.select{|appointment| appointment.confirmed == false && appointment.change_request == true && appointment.cancelled == true}
+    end
+
+    def new_cancellations
+        self.appointments.select{|appointment| appointment.confirmed == true && appointment.cancelled == true}
+    end
+
+    def confirmed_appointments
+        self.appointments.select{|appointment| appointment.confirmed == true && appointment.cancelled == false}
+    end
+    
+    def get_old_appointment(new_appointment)
+        self.appointments.find do |appointment|
+            appointment.provider == new_appointment.provider
+            appointment.client == new_appointment.client
+            appointment.date == new_appointment.date
+            appointment.change_request == false
+        end
+    end
+
 end

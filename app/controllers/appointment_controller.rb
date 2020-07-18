@@ -26,7 +26,6 @@ class AppointmentController < ApplicationController
         check_login
         new_appointment = Appointment.find(params[:id])
         old_appointment = current_user.get_old_appointment(new_appointment)
-        binding.pry
         if has_permission?(new_appointment)
             new_appointment.confirmed = true
             new_appointment.save
@@ -41,7 +40,19 @@ class AppointmentController < ApplicationController
         check_login
         appointment = Appointment.find(params[:id])
         if has_permission?(appointment)
-            appointment.destroy
+            appointment.cancelled = true
+            appointment.save
+            redirect to "/#{session[:type]}s/#{current_user.id}"
+        else
+            redirect to '/failure'
+        end
+    end
+    get '/appointments/:id/deny_change' do
+        check_login
+        appointment = Appointment.find(params[:id])
+        if has_permission?(appointment)
+            appointment.cancelled = true
+            appointment.save
         else
             redirect to '/failure'
         end

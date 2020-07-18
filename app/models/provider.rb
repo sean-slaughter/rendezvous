@@ -7,15 +7,15 @@ class Provider < ActiveRecord::Base
     has_many :clients, through: :appointments
 
     def unconfirmed_appointments
-        unconfirmed_appointments = self.appointments.select{|appointment| appointment.change_request == false && appointment.confirmed == false}
+        self.appointments.select{|appointment| appointment.change_request == false && appointment.confirmed == false && appointment.cancelled == false}
     end
 
     def changed_appointments
-        changed_appointments = self.appointments.select{|appointment| appointment.change_request == true && appointment.confirmed == false}
+        self.appointments.select{|appointment| appointment.change_request == true && appointment.confirmed == false && appointment.cancelled == false} 
     end
 
     def cancelled_appointments
-        cancelled_appointments = self.appointments.select{|appointment| appointment.cancelled == true}
+        self.appointments.select{|appointment| appointment.cancelled == true && appointment.confirmed == true}
     end 
 
     def get_old_appointment(new_appointment)
@@ -25,5 +25,9 @@ class Provider < ActiveRecord::Base
             appointment.date == new_appointment.date
             appointment.change_request == false
         end
+    end
+
+    def confirmed_appointments
+        self.appointments.select{|appointment| appointment.confirmed == true && appointment.cancelled == false}
     end
 end
