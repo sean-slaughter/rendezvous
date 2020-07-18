@@ -85,7 +85,6 @@ class ClientController < ApplicationController
             @change_confirmations = current_user.change_confirmations if current_user.change_confirmations
             @confirmed_appointments = current_user.confirmed_appointments if current_user.confirmed_appointments
         end
-
     end
 
 

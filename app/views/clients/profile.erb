@@ -54,12 +54,11 @@
         <% end %>
     
     <% end %>
-        <% if !@new_change_denials.empty?%>
+    <% if !@new_cancellations.empty?%>
         <div class="row center">
             <%@new_denials.each do |appointment|%>
-            <p class="flow-text red-text">Your request to change your appointment at <%=appointment.provider.business_name%> 
-            on <%=appointment.date.strftime("%A %B %d, %Y")%> has been denied. Please contact the provider for more information.
-            Your original appointment is still booked and can be seen in your upcoming appointments.
+            <p class="flow-text red-text">Your appointment at <%=appointment.provider.business_name%> 
+            on <%=appointment.date.strftime("%A %B %d, %Y")%> has been cancelled. Please contact the provider for more information.
             </p>
             <%appointment.destroy%>
         </div>
