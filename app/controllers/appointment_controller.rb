@@ -98,11 +98,12 @@ class AppointmentController < ApplicationController
         end
     end
 
-    get '/appointments/:id/client_cancel' do
+    patch '/appointments/:id/client_cancel' do
         check_login
         appointment = Appointment.find(params[:id])
         if has_permission?(appointment)
             appointment.client_cancelled = true
+            appointment.cancellation_message = params[:cancellation_message]
             appointment.save
             redirect to "/#{session[:type]}s/#{current_user.id}"
         else
@@ -110,11 +111,12 @@ class AppointmentController < ApplicationController
         end
     end
 
-    get '/appointments/:id/provider_cancel' do
+    patch '/appointments/:id/provider_cancel' do
         check_login
         appointment = Appointment.find(params[:id])
         if has_permission?(appointment)
             appointment.provider_cancelled = true
+            appointment.cancellation_message = params[:cancellation_message]
             appointment.save
             redirect to "/#{session[:type]}s/#{current_user.id}"
         else

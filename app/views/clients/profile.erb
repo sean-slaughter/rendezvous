@@ -4,136 +4,141 @@
         <h2>Hello, <%=current_user.name%>!</h2>
         <a class="btn-small" href="/clients/<%=current_user.id%>/edit">Edit My Info</a>
        </div>
-    <% if !@new_request_for_change.empty?%>
-         
-    <p class="flow-text red-text">You have <%=@changed_appointments.size%> request(s) for appointment changes!</p> 
-    <p class="red-text">Please confirm or deny these changes before moving forward.</p> 
-    <%@new_request_for_change.each do |new_appointment|%>
-    <%old_appointment = current_user.get_old_appointment(new_appointment)%>
-        <div class="col s12">
-        <div class="card white appointment-card">
-            <header class="container appointment-card-name">
-                <span class="card-title"><%=new_appointment.client.name%></span>
-                <p class="red-text">Old date: <%=old_appointment.date.strftime("%A %B %d, %Y")%></p>
-                <p class="green-text">New date: <%=new_appointment.date.strftime("%A %B %d, %Y")%></p>
-                <p class="red-text">Old time: <%=old_appointment.date.strftime("%l:%M %p")%></p>
-                <p class="green-text">New time: <%=new_appointment.date.strftime("%l:%M %p")%></p>
-            </header>
-                <div class="card-action">
-                    <a class="btn card-btn" href="/appointments/<%=new_appointment.id%>/confirm_change">Confirm</a>
-                    <a class="btn card-btn" href="/appointments/<%=new_appointment.id%>/deny">Deny</a>
-                    <a class="btn card-btn" href="/clients/<%=old_appointment.client.id%>">View Client</a>
-                </div>
-        </div>
-        </div>
-    
-    <% end %>
 
-    <% if !@new_confirmations.empty?%>
-        <div class="row center">
-            <%@new_confirmations.each do |appointment|%>
-            <p class="flow-text green-text">Your appointment at <%=appointment.provider.business_name%> 
-            on <%=appointment.date.strftime("%A %B %d, %Y")%> has been confirmed! You can now find it in your upcoming appointments.
-            Scroll down for more information.
-            </p>
-            <%appointment.notified = true%>
-            <%appointment.save%>
-        </div>
+       <!--check for new requests from provider to change appointments-->
+    <% if !@unconfirmed_changes.empty?%>
+        <p class="flow-text red-text">You have <%=@unconfimed_changes.size%> request(s) for appointment changes!</p> 
+        <p class="red-text">Please confirm or deny these changes before moving forward.</p> 
+        <%@new_request_for_change.each do |new_appointment|%>
+        <%old_appointment = current_user.get_old_appointment(new_appointment)%>
+            <div class="col s12">
+            <div class="card white appointment-card">
+                <header class="container appointment-card-name">
+                    <span class="card-title"><%=new_appointment.client.name%></span>
+                    <p class="red-text">Old date: <%=old_appointment.date.strftime("%A %B %d, %Y")%></p>
+                    <p class="green-text">New date: <%=new_appointment.date.strftime("%A %B %d, %Y")%></p>
+                    <p class="red-text">Old time: <%=old_appointment.date.strftime("%l:%M %p")%></p>
+                    <p class="green-text">New time: <%=new_appointment.date.strftime("%l:%M %p")%></p>
+                </header>
+                    <div class="card-action">
+                        <a class="btn card-btn" href="/appointments/<%=new_appointment.id%>/confirm_change">Confirm</a>
+                        <a class="btn card-btn" href="/appointments/<%=new_appointment.id%>/deny">Deny</a>
+                        <a class="btn card-btn" href="/clients/<%=old_appointment.client.id%>">View Client</a>
+                    </div>
+            </div>
+            </div>
+            <% end %>
+    <% else %>
+       <!--check for new appointment confirmations-->
+
+        <% if !@new_confirmations.empty?%>
+            <div class="row center">
+                <%@new_confirmations.each do |appointment|%>
+                <p class="flow-text green-text">Your appointment at <%=appointment.provider.business_name%> 
+                on <%=appointment.date.strftime("%A %B %d, %Y")%> has been confirmed! You can now find it in your upcoming appointments.
+                Scroll down for more information.
+                </p>
+                <%appointment.notified = true%>
+                <%appointment.save%>
+            </div>
+            <% end %>
         <% end %>
-    
-    <% end %>
-    <% if !@change_confirmations.empty?%>
-        <div class="row center">
-            <%@change_confirmations.each do |appointment|%>
-            <p class="flow-text green-text">Your changes to your appointment at <%=appointment.provider.business_name%> 
-            on <%=appointment.date.strftime("%A %B %d, %Y")%> has been confirmed! You can see these changes reflected in your upcoming appointments.
-            Scroll down for more information.
-            </p>
-            <%appointment.notified = true%>
-            <%appointment.save%>
-        </div>
+        <!--check for confirmation from appointment change requests-->
+
+        <% if !@new_change_confirmations.empty?%>
+            <div class="row center">
+                <%@new_change_confirmations.each do |appointment|%>
+                <p class="flow-text green-text">Your changes to your appointment at <%=appointment.provider.business_name%> 
+                on <%=appointment.date.strftime("%A %B %d, %Y")%> has been confirmed! You can see these changes reflected in your upcoming appointments.
+                Scroll down for more information.
+                </p>
+                <%appointment.notified = true%>
+                <%appointment.save%>
+            </div>
+            <% end %>
         <% end %>
-    
-    <% end %>
-    <% if !@new_denials.empty?%>
-        <div class="row center">
-            <%@new_denials.each do |appointment|%>
-            <p class="flow-text red-text">Your request to book an appointment at <%=appointment.provider.business_name%> 
-            on <%=appointment.date.strftime("%A %B %d, %Y")%> has been denied. Please contact the provider for more information.
-            </p>
-            <%appointment.destroy%>
-        </div>
+        <!--check for denials from appointment requests-->
+
+        <% if !@new_denials.empty?%>
+            <div class="row center">
+                <%@new_denials.each do |appointment|%>
+                <p class="flow-text red-text">Your request to book an appointment at <%=appointment.provider.business_name%> 
+                on <%=appointment.date.strftime("%A %B %d, %Y")%> has been denied. Please contact the provider for more information.
+                </p>
+                <%appointment.destroy%>
+            </div>
+            <% end %>
         <% end %>
-    
-    <% end %>
-     <% if !@new_change_denials.empty?%>
-        <div class="row center">
-            <%@new_denials.each do |appointment|%>
-            <p class="flow-text red-text">Your request to change your appointment at <%=appointment.provider.business_name%> 
-            on <%=appointment.date.strftime("%A %B %d, %Y")%> has been denied. Please contact the provider for more information.
-            Your original appointment is still booked and can be seen in your upcoming appointments.
-            </p>
-            <%appointment.destroy%>
-        </div>
+        <!--check for denials from appointment change requests-->
+
+        <% if !@new_change_denials.empty?%>
+            <div class="row center">
+                <%@new_denials.each do |appointment|%>
+                <p class="flow-text red-text">Your request to change your appointment at <%=appointment.provider.business_name%> 
+                on <%=appointment.date.strftime("%A %B %d, %Y")%> has been denied. Please contact the provider for more information.
+                Your original appointment is still booked and can be seen in your upcoming appointments.
+                </p>
+                <%appointment.destroy%>
+            </div>
+            <% end %>
         <% end %>
-    
-    <% end %>
-    <% if !@new_cancellations.empty?%>
-        <div class="row center">
-            <%@new_denials.each do |appointment|%>
-            <p class="flow-text red-text">Your appointment at <%=appointment.provider.business_name%> 
-            on <%=appointment.date.strftime("%A %B %d, %Y")%> has been cancelled. Please contact the provider for more information.
-            </p>
-            <%appointment.destroy%>
-        </div>
+          <!--check for new cancellations-->
+
+        <% if !@new_cancellations.empty?%>
+            <div class="row center">
+                <%@new_cancellations.each do |appointment|%>
+                <p class="flow-text red-text">Your appointment at <%=appointment.provider.business_name%> 
+                on <%=appointment.date.strftime("%A %B %d, %Y")%> has been cancelled. Please contact the provider for more information.
+                </p>
+                <p class="flow-text red-text">Cancellation message:</p>
+                <p class="flow-text">"<%=appointment.cancellation_message%>"</p>
+                <%appointment.destroy%>
+            </div>
+            <% end %>
         <% end %>
-    
-    <% end %>
-    
-    <%if @confirmed_appointments.empty?%>
-                <div class="row center">
-                    <p class="flow-text">You don't currently have any appointments!</p>
-                    <p class="flow-text"><a href="/providers">Search for a Provider</a> to set up your next appointment.</p>
-                </div>
-    <%else%>
+            <!--display any confirmed appointments-->
+
+        <%if @confirmed_appointments.empty?%>
+                    <div class="row center">
+                        <p class="flow-text">You don't currently have any appointments!</p>
+                        <p class="flow-text"><a href="/providers">Search for a Provider</a> to set up your next appointment.</p>
+                    </div>
+        <%else%>
                 <br><br>
                 <div class="row center">
                         <h3>Your upcoming appointments:<h3>
                 </div>
-            
-        </div>
-
-        <div class="row center">
-            <%@confirmed_appointments.each do |appointment|%>
-            
-                    <div class="col s12 m6 l6 xl6">
-                        <div class="card small white">
-                            <div class="card-content">
-                                <span class="card-title activator"><%=appointment.provider.business_name%>
-                                <i class="material-icons right">more_vert</i></span>
-                                <br>
-                                <h6 class="flow-text"><%=appointment.date.strftime("%A %B %d, %Y")%></h6>
-                                <h6><%=appointment.date.strftime("%l:%M %p")%></h6>
+                <div class="row center">
+                    <%@confirmed_appointments.each do |appointment|%>
+                    
+                            <div class="col s12 m6 l6 xl6">
+                                <div class="card small white">
+                                    <div class="card-content">
+                                        <span class="card-title activator"><%=appointment.provider.business_name%>
+                                        <i class="material-icons right">more_vert</i></span>
+                                        <br>
+                                        <h6 class="flow-text"><%=appointment.date.strftime("%A %B %d, %Y")%></h6>
+                                        <h6><%=appointment.date.strftime("%l:%M %p")%></h6>
+                                    </div>
+                                    <div class="card-action">
+                                    <a href="/appointments/<%=appointment.id%>/edit" class="btn-small">Edit</a>
+                                    <a href="/providers/<%=appointment.provider.id%>" class="btn-small">View Provider</a>
+                                    </div>
+                                <div class="card-reveal">
+                                    <span class="card-title">
+                                    <i class="material-icons right">close</i></span>
+                                    <p><u>Services:</u></p>
+                                    <%appointment.services.each do |service|%>
+                                    <p><%=service.name.capitalize%> : $<%='%.2f' % service.price.to_f%></p>
+                                    <%end%>
+                                    <h5 class="total">Total: $<%='%.2f' % appointment.total.to_f%></h5>
+                                </div>
+                                </div>
                             </div>
-                            <div class="card-action">
-                            <a href="/appointments/<%=appointment.id%>/edit" class="btn-small">Edit</a>
-                            <a href="/providers/<%=appointment.provider.id%>" class="btn-small">View Provider</a>
-                            </div>
-                        <div class="card-reveal">
-                            <span class="card-title">
-                            <i class="material-icons right">close</i></span>
-                            <p><u>Services:</u></p>
-                            <%appointment.services.each do |service|%>
-                            <p><%=service.name.capitalize%> : $<%='%.2f' % service.price.to_f%></p>
-                            <%end%>
-                            <h5 class="total">Total: $<%='%.2f' % appointment.total.to_f%></h5>
-                        </div>
-                        </div>
-                    </div>
-            
-            <% end %> 
 
-        </div>
+                    <% end %> 
+                </div>
+        <% end %>     
     <%end%>     
 </div>
 

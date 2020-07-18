@@ -9,7 +9,7 @@ class Provider < ActiveRecord::Base
 
     #new appointment requests
     def unconfirmed_appointments
-        self.appointments.select{|appointment| appointment.client_request_change == false && appointment.confirmed == false && appointment.client_cancelled == false}
+        self.appointments.select{|appointment| appointment.client_request_change == false && appointment.confirmed == false && appointment.provider_cancelled == false && appointment.client_cancelled == false}
     end
 
     #existing appointment confirmation/denial
@@ -39,11 +39,12 @@ class Provider < ActiveRecord::Base
             appointment.client == new_appointment.client
             appointment.date == new_appointment.date
             appointment.client_request_change == false
+            appointment.provider_request_change == false
         end
     end
 
     #appointments to show
     def confirmed_appointments
-        self.appointments.select{|appointment| appointment.confirmed == true && appointment.client_cancelled == false}
+        self.appointments.select{|appointment| appointment.confirmed == true && appointment.client_cancelled == false && appointment.provider_cancelled == false}
     end
 end
