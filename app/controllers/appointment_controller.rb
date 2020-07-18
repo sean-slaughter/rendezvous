@@ -69,8 +69,10 @@ class AppointmentController < ApplicationController
             date: DateTime.strptime(date, "%m/%d/%Y %H:%M %p"),
             confirmed: false,
             notified: false,
-            change_request: false,
-            cancelled: false,
+            client_request_change: false,
+            client_cancelled: false,
+            provider_request_change: false,
+            provider_cancelled: false,
             cancellation_message: ""
 
         )
@@ -92,6 +94,30 @@ class AppointmentController < ApplicationController
             else
                 redirect to '/failure'
             end
+        else
+            redirect to '/failure'
+        end
+    end
+
+    get '/appointments/:id/client_cancel' do
+        check_login
+        appointment = Appointment.find(params[:id])
+        if has_permission?(appointment)
+            appointment.client_cancelled = true
+            appointment.save
+            redirect to "/#{session[:type]}s/#{current_user.id}"
+        else
+            redirect to '/failure'
+        end
+    end
+
+    get '/appointments/:id/provider_cancel' do
+        check_login
+        appointment = Appointment.find(params[:id])
+        if has_permission?(appointment)
+            appointment.provider_cancelled = true
+            appointment.save
+            redirect to "/#{session[:type]}s/#{current_user.id}"
         else
             redirect to '/failure'
         end

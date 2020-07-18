@@ -7,19 +7,23 @@ class Client < ActiveRecord::Base
     has_many :providers, through: :appointments
 
     def new_confirmations
-        self.appointments.select{|appointment| appointment.confirmed == true && appointment.notified == false && appointment.change_request == false}
+        self.appointments.select{|appointment| appointment.confirmed == true && appointment.notified == false && appointment.client_change_request == false}
     end
 
     def change_confirmations
-        self.appointments.select{|appointment| appointment.confirmed == true && appointment.notified == false && appointment.change_request == true}
+        self.appointments.select{|appointment| appointment.confirmed == true && appointment.notified == false && appointment.client_change_request == true}
     end
 
     def new_denials
-        self.appointments.select{|appointment| appointment.confirmed == false && appointment.change_request == false && appointment.cancelled == true}
+        self.appointments.select{|appointment| appointment.confirmed == false && appointment.client_request_change == false && appointment.cancelled == true}
     end
 
     def new_change_denials
-        self.appointments.select{|appointment| appointment.confirmed == false && appointment.change_request == true && appointment.cancelled == true}
+        self.appointments.select{|appointment| appointment.confirmed == false && appointment.client_request_change == true && appointment.cancelled == true}
+    end
+    
+    def new_request_for_change
+        self.appointment.select{|appointment| appointment.confirmed == true && appointment.provider_request_change == true && appointment.notified == false}
     end
 
     def new_cancellations
@@ -35,7 +39,7 @@ class Client < ActiveRecord::Base
             appointment.provider == new_appointment.provider
             appointment.client == new_appointment.client
             appointment.date == new_appointment.date
-            appointment.change_request == false
+            appointment.client_change_request == false
         end
     end
 
