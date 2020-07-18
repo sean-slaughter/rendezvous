@@ -12,8 +12,16 @@ class AppointmentController < ApplicationController
 
     get '/appointments/:id/confirm' do
         check_login
+        
+        #if appointment is new
+            #confirmed = true
+            #save
+        #else if appointment is edited
+            #confirmed = true
+            #request_change = false
+
         appointment = Appointment.find(params[:id])
-        if appointment.provider == current_user
+        if has_permission?(appointment)
             appointment.confirmed = true
             appointment.save
             redirect to "providers/#{current_user.id}"
@@ -25,7 +33,7 @@ class AppointmentController < ApplicationController
     get '/appointments/:id/deny' do
         check_login
         appointment = Appointment.find(params[:id])
-        if appointment.provider == current_user
+        if has_permission?(appointment)
             appointment.destroy
         else
             redirect to '/failure'
@@ -43,7 +51,7 @@ class AppointmentController < ApplicationController
             date: DateTime.strptime(date, "%m/%d/%Y %H:%M %p"),
             confirmed: false,
             notified: false,
-            changed: false,
+            change_request: false,
             cancelled: false
 
         )
@@ -57,7 +65,7 @@ class AppointmentController < ApplicationController
     get '/appointments/:id/edit' do
         check_login
         @appointment = Appointment.find(params[:id])
-        if @appointment.provider == current_user || @appointment.client == current_user
+        if has_permission?(@appointment)
             erb :'appointments/edit'
         else
             redirect to '/failure'
@@ -67,15 +75,33 @@ class AppointmentController < ApplicationController
     patch '/appointments/:id' do
         check_login
         appointment = Appointment.find(params[:id])
-        change_request = @appointment.provider.appointments << Appointment.create(
-            client: @appointment.client
-            services: @appointment.services
-            date: @appointment.date
-            notified: @appointment.notified
-            changed: true
-            cancelled: false
-        )
+        date = "#{params[:date]} #{params[:time]}"
+        if has_permission?(appointment)
+            appointment.provider.appointments.build(
+                client: appointment.client,
+                service_ids: params[:service_ids],
+                date: DateTime.strptime(date, "%m/%d/%Y %H:%M %p"),
+                notified: false,
+                confirmed: false,
+                change_request: true,
+                cancelled: false
+            )
+            if appointment.provider.save
+                redirect to "/#{session[:type]}s/#{current_user.id}"
+            else
+                redirect to '/failure'
+            end
+        else
+            redirect to '/failure'
+        end
     end
+
+    helpers do
+        def has_permission?(appointment)
+            appointment.provider == current_user || appointment.client == current_user
+        end
+    end
+
         
 
 end

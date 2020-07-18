@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20200717204704) do
     t.integer  "client_id"
     t.integer  "provider_id"
     t.boolean  "notified"
-    t.boolean  "changed"
+    t.boolean  "change_request"
     t.boolean  "cancelled"
   end
 

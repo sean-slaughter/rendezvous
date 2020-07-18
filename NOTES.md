@@ -47,9 +47,31 @@ Provider confirms or denys appointment
 If confirmed user gets notification of confirmed appointment
 Appointment editing
 
+end of day 7.17
 
-Make appointments editable
+Edit form for appointments is done
+Need to make method that can get old appointment after "new" one is created
+Need to add conditions to check for changed appointments to provider profile
+Need to add conditions to check for changed appointment confirmations in client profile
+
 Sort appointments by date on load
+
+Request Appointment Change
+
+        Client fills out request form
+        Appointment created with old appointment attributes + changed
+        Provider checks for changed appointments on login
+        Confirms change
+        Client checks for changed and confirmed on login
+        Sees confirmation
+
+
+End of day 7.17
+
+
+Appointment changes can be requested but can't be confirmed
+Cancellation request/notification process
+
 
 
 GENERAL TODO
@@ -58,9 +80,12 @@ Error handling
 Provider Search
 Make all models deletable
 Fix all failure routes
+Can't access login/registration if logged in
 
 
 things that would be nice:
+Client show page shows all past appointments
+Appointment changes just display difference between two appointments.
 Provider can search appointments by client
 Provider can edit availablity
 Provider can add icon to services

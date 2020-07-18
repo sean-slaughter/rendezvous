@@ -4,6 +4,9 @@
             <h2><%=current_user.business_name%></h2>
             <a class="btn-small" href="/providers/<%=current_user.id%>/edit">Edit My Info</a>
        </div> 
+
+        <!--  Check to see if provider has any unconfirmed new appointments   -->
+
         <% if !@unconfirmed_appointments.empty?%>
             <p class="flow-text red-text">You have <%=@unconfirmed_appointments.size%> unconfirmed appointment(s)!</p> 
             <p class="red-text">Please confirm or deny these appointment(s) before moving forward.</p> 
@@ -28,7 +31,53 @@
                 </div>
                 </div>
             <% end %>
-     
+
+
+         <!--  Check to see if provider has any unconfirmed appointment changes   --> 
+
+            <% elsif !@changed_appointments.empty?%>
+            <p class="flow-text red-text">You have <%=@changed_appointments.size%> request(s) for appointment changes!</p> 
+            <p class="red-text">Please confirm or deny these changes before moving forward.</p> 
+            <%@changed_appointments.each do |new_appointment|%>
+            <%old_appointment = current_user.get_old_appointment(new_appointment)%>
+                <div class="col s12">
+                <div class="card white appointment-card">
+                    <header class="container appointment-card-name">
+                        <span class="card-title"><%=new_appointment.client.name%></span>
+                        <p class="red-text">Old date: <%=old_appointment.date.strftime("%A %B %d, %Y")%></p>
+                        <p class="green-text">New date: <%=new_appointment.date.strftime("%A %B %d, %Y")%></p>
+                        <p class="red-text">Old time: <%=old_appointment.date.strftime("%l:%M %p")%></p>
+                        <p class="green-text">New time: <%=new_appointment.date.strftime("%l:%M %p")%></p>
+                    </header>
+                    <p><u>Old Services:</u></p>
+                    <%old_appointment.services.each do |service|%>
+                    <p class="red-text"><%=service.name.capitalize%> : $<%='%.2f' % service.price.to_f%></p>
+                    <%end%>
+                    <h5 class="red-text">Old Total: $<%='%.2f' % old_appointment.total.to_f%></h5>
+                    <p><u>New Services:</u></p>
+                    <%new_appointment.services.each do |service|%>
+                    <p class="green-text"><%=service.name.capitalize%> : $<%='%.2f' % service.price.to_f%></p>
+                    <%end%>
+                    <h5 class="green-text">New Total: $<%='%.2f' % new_appointment.total.to_f%></h5>
+                      <div class="card-action">
+                            <a class="btn card-btn" href="/appointments/<%=old_appointment.id%>/confirm">Confirm</a>
+                            <a class="btn card-btn" href="/appointments/<%=old_appointment.id%>/deny">Deny</a>
+                            <a class="btn card-btn" href="/clients/<%=old_appointment.client.id%>">View Client</a>
+                      </div>
+                </div>
+                </div>
+            <% end %>
+
+
+       <!--  Check to see if provider has any new cancellations   -->         
+
+        <% elsif !@cancelled_appointments.empty?%>
+
+
+                LOGIC FOR CANCELLED APPOINTMENTS
+
+
+
        <%elsif current_user.appointments.empty?%>
             <div class="row center">
                 <p class="flow-text">You currently don't have any appointments.</p>
