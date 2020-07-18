@@ -124,7 +124,7 @@ class AppointmentController < ApplicationController
     end
 
     #need to edit for logic about provider/client changing
-    patch '/appointments/:id' do
+    patch '/appointments/:id/client_change' do
         check_login
         appointment = Appointment.find(params[:id])
         date = "#{params[:date]} #{params[:time]}"
@@ -135,9 +135,35 @@ class AppointmentController < ApplicationController
                 date: DateTime.strptime(date, "%m/%d/%Y %H:%M %p"),
                 notified: false,
                 confirmed: false,
-                change_request: true,
-                cancelled: false,
+                client_request_change: true,
+                provider_request_change: false,
+                client_cancelled: false,
+                provider_cancelled: false,
                 cancellation_message: ""
+            )
+            if appointment.provider.save
+                redirect to "/#{session[:type]}s/#{current_user.id}"
+            else
+                redirect to '/failure'
+            end
+        else
+            redirect to '/failure'
+        end
+    end
+    patch '/appointments/:id/provider_change' do
+        check_login
+        appointment = Appointment.find(params[:id])
+        date = "#{params[:date]} #{params[:time]}"
+        if has_permission?(appointment)
+            appointment.provider.appointments.build(
+                client: appointment.client,
+                service_ids: params[:service_ids],
+                date: DateTime.strptime(date, "%m/%d/%Y %H:%M %p"),
+                notified: false,
+                client_request_change: false,
+                provider_request_change: true,
+                client_cancelled: false,
+                provider_cancelled: false,
             )
             if appointment.provider.save
                 redirect to "/#{session[:type]}s/#{current_user.id}"
