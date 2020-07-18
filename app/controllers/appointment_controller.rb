@@ -97,6 +97,7 @@ class AppointmentController < ApplicationController
         end
     end
 
+    #need to edit for logic about provider/client changing
     patch '/appointments/:id' do
         check_login
         appointment = Appointment.find(params[:id])

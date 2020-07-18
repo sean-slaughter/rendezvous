@@ -36,7 +36,7 @@
           <input class= "btn-large" type="submit" value="Request Change" id="submit">
         </form>
         <br>
-        <form class="appointment-form" action="/appointments//<%=@appointment.id%>/cancel" method="post">
+        <form class="appointment-form" action="/appointments/<%=@appointment.id%>/client_cancel" method="post">
           <p class="flex-text">Would you like to cancel this appointment?</p>
           <label>Please give <%=@appointment.provider.business_name%> your reason for cancelling.</label>
              <div class="input-field">
