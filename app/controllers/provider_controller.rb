@@ -74,12 +74,15 @@ class ProviderController < ApplicationController
         def get_changes
             @confirmed_appointments = []
             @unconfirmed_appointments = []
-            @changed_appointments = []
-            @cancelled_appointments = []
+            @unconfirmed_changes = []
+            @new_cancellations = []
+            @new_change_denials = []
+            @new_change_confirmations = []
             @confirmed_appointments = current_user.confirmed_appointments if current_user.confirmed_appointments
             @unconfirmed_appointments = current_user.unconfirmed_appointments if current_user.unconfirmed_appointments
-            @changed_appointments = current_user.changed_appointments if current_user.changed_appointments
-            @cancelled_appointments = current_user.cancelled_appointments if current_user.cancelled_appointments
+            @new_change_denials = current_user.new_change_denials if current_user.new_change_denials
+            @new_change_confirmations = current_user.new_change_confirmations if current_user.new_change_confirmations
+            @new_cancellations = current_user.new_cancellations if current_user.new_cancellations
         end
     end
 

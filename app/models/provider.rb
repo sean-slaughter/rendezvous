@@ -17,11 +17,11 @@ class Provider < ActiveRecord::Base
         self.appointments.select{|appointment| appointment.client_request_change == true && appointment.confirmed == false && appointment.client_cancelled == false} 
     end
 
-    def change_denials
+    def new_change_denials
         self.appointments.select{|appointment| appointment.confirmed == false && appointment.provider_request_change == true && appointment.client_cancelled == true}
     end
 
-    def change_confirmations
+    def new_change_confirmations
         self.appointments.select{|appointment| appointment.confirmed == true && appointment.notified == false && appointment.provider_request_change == true}
     end
 
@@ -29,7 +29,7 @@ class Provider < ActiveRecord::Base
   
 
     #cancelled appointments 
-    def cancelled_appointments
+    def new_cancellations
         self.appointments.select{|appointment| appointment.client_cancelled == true && appointment.confirmed == true}
     end 
 
