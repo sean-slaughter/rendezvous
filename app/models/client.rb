@@ -27,7 +27,7 @@ class Client < ActiveRecord::Base
     end
 
     def new_cancellations
-        self.appointments.select{|appointment| appointment.confirmed == true && appointment.cancelled == true}
+        self.appointments.select{|appointment| appointment.confirmed == true && appointment.provider_cancelled == true}
     end
 
     def confirmed_appointments
