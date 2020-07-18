@@ -6,14 +6,29 @@ class Provider < ActiveRecord::Base
     has_many :appointments
     has_many :clients, through: :appointments
 
+
+    #new appointment requests
     def unconfirmed_appointments
-        self.appointments.select{|appointment| appointment.client_change_request == false && appointment.confirmed == false && appointment.client_cancelled == false}
+        self.appointments.select{|appointment| appointment.client_request_change == false && appointment.confirmed == false && appointment.client_cancelled == false}
     end
 
-    def changed_appointments
-        self.appointments.select{|appointment| appointment.client_change_request == true && appointment.confirmed == false && appointment.client_cancelled == false} 
+    #existing appointment confirmation/denial
+    def unconfirmed_changes
+        self.appointments.select{|appointment| appointment.client_request_change == true && appointment.confirmed == false && appointment.client_cancelled == false} 
     end
 
+    def change_denials
+        self.appointments.select{|appointment| appointment.confirmed == false && appointment.provider_request_change == true && appointment.client_cancelled == true}
+    end
+
+    def change_confirmations
+        self.appointments.select{|appointment| appointment.confirmed == true && appointment.notified == false && appointment.provider_request_change == true}
+    end
+
+
+  
+
+    #cancelled appointments 
     def cancelled_appointments
         self.appointments.select{|appointment| appointment.client_cancelled == true && appointment.confirmed == true}
     end 
@@ -23,10 +38,11 @@ class Provider < ActiveRecord::Base
             appointment.provider == new_appointment.provider
             appointment.client == new_appointment.client
             appointment.date == new_appointment.date
-            appointment.client_change_request == false
+            appointment.client_request_change == false
         end
     end
 
+    #appointments to show
     def confirmed_appointments
         self.appointments.select{|appointment| appointment.confirmed == true && appointment.client_cancelled == false}
     end
