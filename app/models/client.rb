@@ -8,7 +8,7 @@ class Client < ActiveRecord::Base
 
     #new appointment confirmation/denial
     def new_confirmations
-        self.appointments.select{|appointment| appointment.confirmed == true && appointment.notified == false && appointment.client_request_change == false && appointment.provider_cancelled == false}
+        self.appointments.select{|appointment| appointment.confirmed == true && appointment.notified == false && appointment.client_request_change == false && appointment.provider_request_change == false && appointment.provider_cancelled == false}
     end
 
     def new_denials
@@ -25,7 +25,7 @@ class Client < ActiveRecord::Base
     end
     
     def unconfirmed_changes
-        self.appointment.select{|appointment| appointment.confirmed == false && appointment.provider_request_change == true && appointment.notified == false}
+        self.appointments.select{|appointment| appointment.confirmed == false && appointment.provider_request_change == true && appointment.notified == false}
     end
 
     #appointment cancellations

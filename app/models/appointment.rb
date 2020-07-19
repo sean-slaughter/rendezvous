@@ -12,6 +12,12 @@ class Appointment < ActiveRecord::Base
         end
         output
     end
+
+    def get_differences(appointment)
+        self.attributes.collect do |key, value|
+            value != appointment[:key]
+        end
+    end
     
     
     

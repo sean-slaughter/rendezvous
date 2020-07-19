@@ -59,7 +59,7 @@
                 <h5 class="green-text">New Total: $<%='%.2f' % new_appointment.total.to_f%></h5>
                     <div class="card-action">
                         <a class="btn card-btn" href="/appointments/<%=new_appointment.id%>/confirm_change">Confirm</a>
-                        <a class="btn card-btn" href="/appointments/<%=new_appointment.id%>/deny_change">Deny</a>
+                        <a class="btn card-btn" href="/appointments/<%=new_appointment.id%>/deny">Deny</a>
                         <a class="btn card-btn" href="/clients/<%=old_appointment.client.id%>">View Client</a>
                     </div>
             </div>
@@ -97,7 +97,7 @@
 
             <% if !@new_cancellations.empty?%>
                 <div class="row center">
-                    <%@new_change_denials.each do |appointment|%>
+                    <%@new_cancellations.each do |appointment|%>
                     <p class="flow-text red-text">Your appointment with <%=appointment.client.name%> 
                     on <%=appointment.date.strftime("%A %B %d, %Y")%> has been cancelled by the client.
                     Please contact the client for more information.

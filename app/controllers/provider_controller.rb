@@ -78,6 +78,7 @@ class ProviderController < ApplicationController
             @new_cancellations = []
             @new_change_denials = []
             @new_change_confirmations = []
+            @unconfirmed_changes = current_user.unconfirmed_changes if current_user.unconfirmed_changes
             @confirmed_appointments = current_user.confirmed_appointments if current_user.confirmed_appointments
             @unconfirmed_appointments = current_user.unconfirmed_appointments if current_user.unconfirmed_appointments
             @new_change_denials = current_user.new_change_denials if current_user.new_change_denials

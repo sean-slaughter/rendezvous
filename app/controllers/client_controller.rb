@@ -79,6 +79,7 @@ class ClientController < ApplicationController
             @unconfirmed_changes = []
             @new_cancellations = []
             @confirmed_appointments = []
+            @unconfirmed_changes = current_user.unconfirmed_changes if current_user.unconfirmed_changes
             @confirmed_appointments = current_user.confirmed_appointments if current_user.confirmed_appointments
             @new_cancellations = current_user.new_cancellations if current_user.new_cancellations
             @new_change_denials = current_user.new_change_denials if current_user.new_change_denials

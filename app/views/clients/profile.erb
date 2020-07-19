@@ -7,14 +7,14 @@
 
        <!--check for new requests from provider to change appointments-->
     <% if !@unconfirmed_changes.empty?%>
-        <p class="flow-text red-text">You have <%=@unconfimed_changes.size%> request(s) for appointment changes!</p> 
+        <p class="flow-text red-text">You have <%=@unconfirmed_changes.size%> request(s) for appointment changes!</p> 
         <p class="red-text">Please confirm or deny these changes before moving forward.</p> 
-        <%@new_request_for_change.each do |new_appointment|%>
+        <%@unconfirmed_changes.each do |new_appointment|%>
         <%old_appointment = current_user.get_old_appointment(new_appointment)%>
             <div class="col s12">
             <div class="card white appointment-card">
                 <header class="container appointment-card-name">
-                    <span class="card-title"><%=new_appointment.client.name%></span>
+                    <span class="card-title"><%=new_appointment.provider.business_name%></span>
                     <p class="red-text">Old date: <%=old_appointment.date.strftime("%A %B %d, %Y")%></p>
                     <p class="green-text">New date: <%=new_appointment.date.strftime("%A %B %d, %Y")%></p>
                     <p class="red-text">Old time: <%=old_appointment.date.strftime("%l:%M %p")%></p>
@@ -73,7 +73,7 @@
 
         <% if !@new_change_denials.empty?%>
             <div class="row center">
-                <%@new_denials.each do |appointment|%>
+                <%@new_change_denials.each do |appointment|%>
                 <p class="flow-text red-text">Your request to change your appointment at <%=appointment.provider.business_name%> 
                 on <%=appointment.date.strftime("%A %B %d, %Y")%> has been denied. Please contact the provider for more information.
                 Your original appointment is still booked and can be seen in your upcoming appointments.

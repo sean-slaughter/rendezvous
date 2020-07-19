@@ -157,17 +157,19 @@ class AppointmentController < ApplicationController
         appointment = Appointment.find(params[:id])
         date = "#{params[:date]} #{params[:time]}"
         if has_permission?(appointment)
-            appointment.provider.appointments.build(
-                client: appointment.client,
-                service_ids: params[:service_ids],
+            test = appointment.client.appointments.build(
+                confirmed: false,
+                provider: appointment.provider,
+                services: appointment.services,
                 date: DateTime.strptime(date, "%m/%d/%Y %H:%M %p"),
                 notified: false,
                 client_request_change: false,
                 provider_request_change: true,
                 client_cancelled: false,
                 provider_cancelled: false,
+                cancellation_message: ""
             )
-            if appointment.provider.save
+            if appointment.client.save
                 redirect to "/#{session[:type]}s/#{current_user.id}"
             else
                 redirect to '/failure'
