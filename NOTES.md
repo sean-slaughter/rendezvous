@@ -90,7 +90,12 @@ Appointment denial process:
         Provider denies change           FFTT
         Client notified                  destroy, old appointment state becomes : TTFF
 
-        
+End of day 7.18
+Client denial of a providers request to edit bug
+Provider search
+Error handling
+Fix all failure routes
+Done?
 
 GENERAL TODO
 Appointment functionality
