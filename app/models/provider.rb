@@ -18,7 +18,7 @@ class Provider < ActiveRecord::Base
     end
 
     def new_change_denials
-        self.appointments.select{|appointment| appointment.confirmed == false && appointment.provider_request_change == true && appointment.client_cancelled == true}
+        self.appointments.select{|appointment| appointment.notified == true && appointment.provider_request_change == true && appointment.client_cancelled == true}
     end
 
     def new_change_confirmations

@@ -42,10 +42,12 @@ class AppointmentController < ApplicationController
         if has_permission?(appointment)
             if session[:type] == "client"
                 appointment.client_cancelled = true
+                appointment.notified = true
                 appointment.save
                 redirect to "/#{session[:type]}s/#{current_user.id}"
             elsif session[:type] == "provider"
                 appointment.provider_cancelled = true
+                appointment.notified = true
                 appointment.save
                 redirect to "/#{session[:type]}s/#{current_user.id}"
             else
