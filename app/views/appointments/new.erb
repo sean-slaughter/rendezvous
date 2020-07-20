@@ -14,22 +14,25 @@
             <input type="text" name="time" value="Time" class="timepicker" id="time">
           </div>
               <label>Services</label>
+              <div class="row">
                 <%@provider.services.each do |service|%>
                 <div class="input-field">
-                <div class="col s3">
+                  <div class="col s3">
                     <p>
                     <label>
                     <input type="checkbox" value="<%=service.id%>" name="service_ids[]">
                     <span><%=service.name%>     $<%='%.2f' % service.price.to_f%></span>
                     </label>
                     </p>
+                  </div>
                 </div>
                 <% end %>
-            
-          </div>
+             </div>
           <br>
           <br>
           <input class= "btn-large" type="submit" value="Request Appointment" id="submit">
+          </div>
+     
         </form>
     </div>
 </div>

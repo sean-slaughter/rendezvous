@@ -15,9 +15,10 @@
             <input type="text" name="time" value="<%=@appointment.date.strftime("%l:%M %p")%>" class="timepicker" id="time">
           </div>
               <label>Services</label>
+              <div class="row">
                 <%@appointment.provider.services.each do |service|%>
                 <div class="input-field">
-                <div class="col s3">
+                  <div class="col s3">
                     <p>
                     <label>
                     <% if @appointment.services.include?(service) %>
@@ -28,8 +29,9 @@
                     <span><%=service.name%>     $<%='%.2f' % service.price.to_f%></span>
                     </label>
                     </p>
-                </div>
-                <% end %>
+                  </div>
+              </div>
+              <% end %>
           </div>
           <br>
           <br>
