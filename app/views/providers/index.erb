@@ -4,11 +4,11 @@
         <span class="flow-text">You can search by name, location or services to find the business that 
         you're looking for.</span>
     
-    <form action="/providers" method="post">
+    <form action="/providers/search" method="post">
     <div class="input-field">
-        <label for="query">Search for a provider</label>
+        <label for="q">Search for a provider</label>
         <i class="material-icons prefix">search</i>
-        <input type="text" name="query" id="query" placeholder="ex. Anthony's Barbershop">
+        <input type="text" name="q" id="q" placeholder="ex. Anthony's Barbershop">
     </div>
     <input type="submit" value="Submit" class="btn-small">
     </form>

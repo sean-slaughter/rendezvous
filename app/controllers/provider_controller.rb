@@ -13,6 +13,13 @@ class ProviderController < ApplicationController
         erb :'/providers/index'
     end
 
+    post '/providers/search' do
+        @providers = Provider.where("business_name LIKE ?", "%" + params[:q] + "%")
+        @providers << Provider.where("location LIKE ?", "%" + params[:q] + "%")
+        
+        erb :'/providers/index'
+    end
+
     post '/providers' do
         params[:email] = params[:email].downcase
         provider = Provider.new(params)
