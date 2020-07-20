@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row center top-spaced-bar">
+    <h1>Service Providers</h1>
+        <span class="flow-text">You can search by name, location or services to find the business that 
+        you're looking for.</span>
+    
+    <form action="/providers" method="post">
+    <div class="input-field">
+        <label for="query">Search for a provider</label>
+        <i class="material-icons prefix">search</i>
+        <input type="text" name="query" id="query" placeholder="ex. Anthony's Barbershop">
+    </div>
+    <input type="submit" value="Submit" class="btn-small">
+    </form>
+    </div>
+    <div class="row center">
+        <%@providers.each do |provider|%>
+            <div class="col s4">
+                <div class="card small white">
+                    <div class="card-title activator"><%=provider.business_name%><i class="material-icons right">more_vert</i></div>
+                    <div class="card-content">
+                        <p><%=provider.location%></p>
+                        <p><%=provider.phone_number%></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title"><%=provider.business_name%><i class="material-icons right">close</i></span>
+                        <p>Services offered: </p>
+                         <%provider.services.each do |service|%>
+                        <p><%=service.name%></p>
+                    <% end %>
+                    </div>
+                   
+                   
+                     <div class="card-action">
+                    <a class="btn-small" href="/providers/<%=provider.id%>">More Details</a>
+                    </div>
+                </div>
+               
+            </div>
+        <% end %>
+    </div>
+</div>
