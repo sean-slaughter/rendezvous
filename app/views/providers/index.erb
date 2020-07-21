@@ -3,6 +3,12 @@
     <h1>Service Providers</h1>
         <span class="flow-text">You can search by name, location or services to find the business that 
         you're looking for.</span>
+        <%if @providers.empty?%>
+            <div class="row center">
+            <span class="flex-text red-text">Your search did not produce any results, please try again.</span>
+            <%@providers = Provider.all%>
+            </div>
+        <%end%>
     
     <form action="/providers/search" method="post">
     <div class="input-field">
@@ -14,10 +20,7 @@
     </form>
     </div>
     <div class="row center">
-        <%if @providers.empty?%>
-            <span class="flex-text">Your search did not produce any results, please try again.</span>
-            <%@providers = Provider.all%>
-        <%end%>
+        
         <%@providers.each do |provider|%>
             <div class="col s4">
                 <div class="card small white">
