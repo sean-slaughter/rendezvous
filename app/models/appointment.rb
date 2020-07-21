@@ -18,6 +18,8 @@ class Appointment < ActiveRecord::Base
             value != appointment[:key]
         end
     end
+
+  
     
     
     

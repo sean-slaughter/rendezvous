@@ -14,6 +14,10 @@
     </form>
     </div>
     <div class="row center">
+        <%if @providers.empty?%>
+            <span class="flex-text">Your search did not produce any results, please try again.</span>
+            <%@providers = Provider.all%>
+        <%end%>
         <%@providers.each do |provider|%>
             <div class="col s4">
                 <div class="card small white">

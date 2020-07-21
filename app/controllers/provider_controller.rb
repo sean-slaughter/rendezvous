@@ -14,9 +14,14 @@ class ProviderController < ApplicationController
     end
 
     post '/providers/search' do
-        @providers = Provider.where("business_name LIKE ?", "%" + params[:q] + "%")
-        @providers << Provider.where("location LIKE ?", "%" + params[:q] + "%")
-        
+        @providers = Provider.search(params[:q])
+        if @providers.empty?
+            @providers = Service.search(params[:q])
+        else
+            Service.search(params[:q]).each{|provider| @providers << provider} unless Service.search(params[:p]).empty?
+        end
+        @providers = @providers.uniq
+    
         erb :'/providers/index'
     end
 
@@ -91,7 +96,7 @@ class ProviderController < ApplicationController
             @new_change_denials = []
             @new_change_confirmations = []
             @unconfirmed_changes = current_user.unconfirmed_changes if current_user.unconfirmed_changes
-            @confirmed_appointments = current_user.confirmed_appointments.order(date: :desc) if current_user.confirmed_appointments
+            @confirmed_appointments = current_user.confirmed_appointments if current_user.confirmed_appointments
             @unconfirmed_appointments = current_user.unconfirmed_appointments if current_user.unconfirmed_appointments
             @new_change_denials = current_user.new_change_denials if current_user.new_change_denials
             @new_change_confirmations = current_user.new_change_confirmations if current_user.new_change_confirmations

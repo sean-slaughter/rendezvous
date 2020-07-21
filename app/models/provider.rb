@@ -6,6 +6,10 @@ class Provider < ActiveRecord::Base
     has_many :appointments
     has_many :clients, through: :appointments
 
+    def self.search(search)
+        self.where('business_name like :q or name like :q', :q => "%#{search}%").to_a
+    end
+
 
     #new appointment requests
     def unconfirmed_appointments
