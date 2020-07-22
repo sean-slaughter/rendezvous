@@ -21,7 +21,7 @@ class ServiceController < ApplicationController
                 price: params[:price].remove("$").to_d, 
                 description: params[:description] 
             )
-            flash.now[:notification] = "Your service has been created."
+            flash.now[:notification] = "Your service '#{current_user.services.last.name}' has been created."
             erb :'providers/edit'
         else
             flash.now[:error] = "You do not have permission to do that."
