@@ -1,5 +1,5 @@
 class AppointmentController < ApplicationController
-    
+
 use Rack::Flash
 
     get '/appointments/:id/new' do
@@ -8,7 +8,8 @@ use Rack::Flash
         if @provider
             erb :'appointments/new'
         else
-            redirect to '/failure'
+            flash[:error] = "Something went wrong."
+            redirect to '/index'
         end
     end
 
@@ -20,7 +21,7 @@ use Rack::Flash
             appointment.save
             redirect to "providers/#{current_user.id}"
         else
-            redirect to '/failure'
+            redirect to '/index'
         end
     end
 
@@ -34,7 +35,7 @@ use Rack::Flash
             old_appointment.destroy
             redirect to "/#{session[:type]}s/#{current_user.id}"
         else
-            redirect to '/failure'
+            redirect to '/index'
         end
     end
 
@@ -53,19 +54,20 @@ use Rack::Flash
                 appointment.save
                 redirect to "/#{session[:type]}s/#{current_user.id}"
             else
-                redirect to '/failure'
+                flash[:error] = "Something went wrong."
+                redirect to '/index'
             end
         else
-            redirect to '/failure'
+            redirect to '/index'
         end
     end
 
 
     post '/appointments/:provider_id' do 
         check_login
-        provider = Provider.find(params[:provider_id])
+        @provider = Provider.find(params[:provider_id])
         date = "#{params[:date]} #{params[:time]}"
-        provider.appointments.build(
+        @provider.appointments.build(
 
             client: current_user,
             service_ids: params[:service_ids],
@@ -82,7 +84,8 @@ use Rack::Flash
         if provider.save
             redirect to "/providers/#{provider.id}"
         else
-            redirect to '/failure'
+            flash.now[:error] = @provider.errors.full_messages[0]
+            erb :'appointments/new'
         end
     end
 
@@ -95,10 +98,12 @@ use Rack::Flash
             elsif session[:type] == "provider"
                 erb :'appointments/provider_edit'
             else
-                redirect to '/failure'
+                flash[:error] = "Something went wrong."
+                redirect to '/index'
             end
         else
-            redirect to '/failure'
+            flash[:error] = "You do not have permission to do that."
+            redirect to '/index'
         end
     end
 
@@ -111,7 +116,8 @@ use Rack::Flash
             appointment.save
             redirect to "/#{session[:type]}s/#{current_user.id}"
         else
-            redirect to '/failure'
+            flash[:error] = "You do not have permission to do that."
+            redirect to '/index'
         end
     end
 
@@ -124,7 +130,8 @@ use Rack::Flash
             appointment.save
             redirect to "/#{session[:type]}s/#{current_user.id}"
         else
-            redirect to '/failure'
+            flash[:error] = "You do not have permission to do that."
+            redirect to '/index'
         end
     end
 
@@ -149,10 +156,12 @@ use Rack::Flash
             if appointment.provider.save
                 redirect to "/#{session[:type]}s/#{current_user.id}"
             else
-                redirect to '/failure'
+                flash[:error] = "Something went wrong."
+                redirect to '/index'
             end
         else
-            redirect to '/failure'
+            flash[:error] = "You do not have permission to do that."
+            redirect to '/index'
         end
     end
 
@@ -176,10 +185,12 @@ use Rack::Flash
             if appointment.client.save
                 redirect to "/#{session[:type]}s/#{current_user.id}"
             else
-                redirect to '/failure'
+                flash[:error] = "Something went wrong."
+                redirect to '/index'
             end
         else
-            redirect to '/failure'
+            flash[:error] = "You do not have permission to do that."
+            redirect to '/index'
         end
     end
 

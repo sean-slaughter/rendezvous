@@ -8,7 +8,7 @@ class ServiceController < ApplicationController
         elsif session[:type] == "provider"
             erb :'services/new'
         else
-            redirect to '/failure'
+            redirect to '/index'
         end
     end
 
@@ -23,7 +23,7 @@ class ServiceController < ApplicationController
             )
             redirect to "/providers/#{current_user.id}/edit"
         else
-            redirect to '/failure'
+            redirect to '/index'
         end
     end
 
@@ -34,7 +34,7 @@ class ServiceController < ApplicationController
         elsif has_permission?(@service)
             erb :'services/edit'
         else
-            redirect to '/failure'
+            redirect to '/index'
         end
     end
 
@@ -49,10 +49,10 @@ class ServiceController < ApplicationController
             if @service.save
                 redirect to "/providers/#{current_user.id}"
             else
-                redirect to '/failure'
+                redirect to '/index'
             end
         else
-            redirect to '/failure'
+            redirect to '/index'
         end
     end
 

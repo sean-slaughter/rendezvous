@@ -43,7 +43,7 @@ use Rack::Flash
         if has_permission?
             erb :'clients/edit'
         else
-            redirect to '/failure'
+            redirect to '/index'
         end
     end
             
@@ -58,7 +58,7 @@ use Rack::Flash
             if current_user.save
                 redirect to "/clients/#{params[:id]}"
             else
-                redirect to '/failure'
+                redirect to '/index'
             end
         else
             redirect to "/clients/#{params[:id]}"

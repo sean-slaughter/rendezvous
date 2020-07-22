@@ -11,7 +11,11 @@ use Rack::Flash
   end
 
   get "/" do
-    erb :index
+    if !logged_in?
+      erb :index
+   else
+     redirect to "/#{session[:type]}s/#{current_user.id}"
+   end
   end
 
   get '/failure' do

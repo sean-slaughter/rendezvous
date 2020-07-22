@@ -9,10 +9,10 @@
         <form class="appointment-form" action="/appointments/<%=@appointment.id%>/client_change" method="post">
           <input id="hidden" type="hidden" name="_method" value="PATCH">
           <div class="input-field">
-            <input type="text" name="date" value="<%=@appointment.date.strftime("%m/%d/%Y")%>" class="datepicker" id="date">
+            <input type="text" name="date" value="<%=@appointment.date.strftime("%m/%d/%Y")%>" class="datepicker" id="date" required>
           </div>
           <div class="input-field">
-            <input type="text" name="time" value="<%=@appointment.date.strftime("%l:%M %p")%>" class="timepicker" id="time">
+            <input type="text" name="time" value="<%=@appointment.date.strftime("%l:%M %p")%>" class="timepicker" id="time" required>
           </div>
               <label>Services</label>
               <div class="row">
@@ -43,7 +43,7 @@
           <p class="flex-text">Would you like to cancel this appointment?</p>
           <label>Please give <%=@appointment.provider.business_name%> your reason for cancelling.</label>
              <div class="input-field">
-            <input type="text" placeholder="Cancellation reason" name="cancellation_message">
+            <input type="text" placeholder="Cancellation reason" name="cancellation_message" class="validates" required>
            </div>
           <input type="submit" value="Cancel This Appointment" class="btn-small">
         </form>

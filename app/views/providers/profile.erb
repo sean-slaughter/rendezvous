@@ -6,7 +6,11 @@
        </div> 
 
         <!--  Check to see if provider has any unconfirmed new appointments   -->
-
+    <% if flash[:error] %>
+      <div class="row center">
+        <p class="red-text"><%=flash[:error]%></p>
+      </div>
+    <% end %>
     <% if !@unconfirmed_appointments.empty?%>
         <p class="flow-text red-text">You have <%=@unconfirmed_appointments.size%> unconfirmed appointment(s)!</p> 
         <p class="red-text">Please confirm or deny these appointment(s) before moving forward.</p> 
@@ -38,6 +42,7 @@
         <p class="red-text">Please confirm or deny these changes before moving forward.</p> 
         <%@unconfirmed_changes.each do |new_appointment|%>
         <%old_appointment = current_user.get_old_appointment(new_appointment)%>
+        <%changes = new_appointment.get_differnces(old_appointment)%>
             <div class="col s12">
             <div class="card white appointment-card">
                 <header class="container appointment-card-name">

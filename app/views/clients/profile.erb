@@ -11,6 +11,7 @@
         <p class="red-text">Please confirm or deny these changes before moving forward.</p> 
         <%@unconfirmed_changes.each do |new_appointment|%>
         <%old_appointment = current_user.get_old_appointment(new_appointment)%>
+     
             <div class="col s12">
             <div class="card white appointment-card">
                 <header class="container appointment-card-name">

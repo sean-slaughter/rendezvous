@@ -1,5 +1,5 @@
 class Provider < ActiveRecord::Base
-    require_relative './client'
+ 
     has_secure_password
     validates :email, presence: true, uniqueness: true
     validates :business_name, presence: true

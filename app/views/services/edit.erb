@@ -11,19 +11,19 @@
         <input id="hidden" type="hidden" name="_method" value="PATCH">
            <div class="row">
                 <div class="input-field">
-                    <input type="text" name="name" id="name" value="<%=@service.name%>" class="validate">
+                    <input type="text" name="name" id="name" value="<%=@service.name%>" class="validate" required>
                     <label for="name">Name</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field text-area">
-                    <textarea id="description" name="description" class="materialize-textarea"><%=@service.description%></textarea>
+                    <textarea required id="description" name="description" class="materialize-textarea"><%=@service.description%></textarea>
                     <label class="active" for="description">Description</label>
                 </div>
             </div>
              <div class="row">
                 <div class="input-field">
-                    <input type="text" name="price" id="price" value="$<%='%.2f' % @service.price.to_f%>" class="validate">
+                    <input type="text" name="price" id="price" value="$<%='%.2f' % @service.price.to_f%>" class="validate" required>
                     <label for="price">Price ($0.00)</label>
                 </div>
             </div>

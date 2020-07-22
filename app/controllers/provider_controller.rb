@@ -62,7 +62,7 @@ class ProviderController < ApplicationController
         if has_permission?
             erb :'providers/edit'
         else
-            redirect to '/failure'
+            redirect to '/index'
         end
     end
 
@@ -77,7 +77,7 @@ class ProviderController < ApplicationController
             if current_user.save
                 redirect to "/providers/#{params[:id]}"
             else
-                redirect to '/failure'
+                redirect to '/index'
             end
         else
             redirect to "/providers/#{params[:id]}"

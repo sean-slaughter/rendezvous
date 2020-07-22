@@ -9,10 +9,10 @@
         <form class="appointment-form" action="/appointments/<%=@appointment.id%>/provider_change" method="post">
           <input id="hidden" type="hidden" name="_method" value="PATCH">
           <div class="input-field">
-            <input type="text" name="date" value="<%=@appointment.date.strftime("%m/%d/%Y")%>" class="datepicker" id="date">
+            <input type="text" name="date" value="<%=@appointment.date.strftime("%m/%d/%Y")%>" class="datepicker" id="date" required>
           </div>
           <div class="input-field">
-            <input type="text" name="time" value="<%=@appointment.date.strftime("%l:%M %p")%>" class="timepicker" id="time">
+            <input type="text" name="time" value="<%=@appointment.date.strftime("%l:%M %p")%>" class="timepicker" id="time" required>
           <br>
           <br>
           <input class= "btn-large" type="submit" value="Request Change" id="submit">
