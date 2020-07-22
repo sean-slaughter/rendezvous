@@ -24,8 +24,9 @@ class ProviderController < ApplicationController
         else
             Service.search(params[:q]).each{|provider| @providers << provider} unless Service.search(params[:p]).empty?
         end
-        @providers = @providers.uniq
-    
+        
+        @providers = @providers.uniq.compact
+        binding.pry
         erb :'/providers/index'
     end
 
