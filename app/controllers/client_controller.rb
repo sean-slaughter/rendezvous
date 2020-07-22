@@ -58,6 +58,7 @@ use Rack::Flash
             if current_user.save
                 flash.now[:notification] = "Your account information has been updated."
                 @client = current_user
+                get_changes
                 erb :'clients/profile'
             else
                 flash.now[:error] = "Something went wrong."
@@ -73,7 +74,7 @@ use Rack::Flash
         if has_permission?
             current_user.destroy   
             session.clear
-            flash.now[:error] = "Your account has been deleted."
+            flash[:error] = "Your account has been deleted."
             erb :'index'
         end
     end

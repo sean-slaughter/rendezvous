@@ -82,8 +82,8 @@ use Rack::Flash
             cancellation_message: ""
 
         )
-        if provider.save
-            redirect to "/providers/#{provider.id}"
+        if @provider.save
+            redirect to "/providers/#{@provider.id}"
         else
             flash.now[:error] = @provider.errors.full_messages[0]
             erb :'appointments/new'

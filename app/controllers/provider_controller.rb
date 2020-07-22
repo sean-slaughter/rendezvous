@@ -40,7 +40,7 @@ class ProviderController < ApplicationController
                 login(provider.email, provider.password)
                 redirect to "/providers/#{provider.id}"
             else
-                flash.now[:error] = provider.error.full_messages[0]
+                flash.now[:error] = provider.errors.full_messages[0]
                 erb :'providers/new'
             end
         end
