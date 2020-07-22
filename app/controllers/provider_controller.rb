@@ -30,16 +30,18 @@ class ProviderController < ApplicationController
     end
 
     post '/providers' do
-        check_login
         params[:email] = params[:email].downcase
         if Client.get_emails.include?(params[:email])
             flash[:error] = "Email is already taken."
-        provider = Provider.new(params)
-        if provider.save
-            login(provider.email, provider.password)
-            redirect to "/providers/#{provider.id}"
+            erb :'/providers/new'
         else
-            flash[:error] = provider.error.full_messages[0]
+            provider = Provider.new(params)
+            if provider.save
+                login(provider.email, provider.password)
+                redirect to "/providers/#{provider.id}"
+            else
+                flash[:error] = provider.error.full_messages[0]
+            end
         end
     end
 
