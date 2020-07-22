@@ -1,5 +1,5 @@
 class Client < ActiveRecord::Base
-
+   
     has_secure_password
     validates :email, presence: true, uniqueness: true
     validates :name, presence: true
@@ -44,13 +44,7 @@ class Client < ActiveRecord::Base
     end
     
     def get_old_appointment(new_appointment)
-        self.appointments.find do |appointment|
-            appointment.provider == new_appointment.provider
-            appointment.client == new_appointment.client
-            appointment.date == new_appointment.date
-            appointment.provider_request_change == false
-            appointment.client_request_change == false
-        end
+       self.appointments.find(new_appointment.old_appointment)
     end
 
 end

@@ -43,14 +43,8 @@ class Provider < ActiveRecord::Base
     end 
 
     def get_old_appointment(new_appointment)
-        self.appointments.find do |appointment|
-            appointment.provider == new_appointment.provider
-            appointment.client == new_appointment.client
-            appointment.date == new_appointment.date
-            appointment.client_request_change == false
-            appointment.provider_request_change == false
-        end
-    end
+        self.appointments.find(new_appointment.old_appointment)
+     end
 
     #appointments to show
     def confirmed_appointments

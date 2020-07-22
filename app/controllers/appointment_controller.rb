@@ -69,7 +69,6 @@ use Rack::Flash
         @provider = Provider.find(params[:provider_id])
         date = "#{params[:date]} #{params[:time]}"
         @provider.appointments.build(
-
             client: current_user,
             service_ids: params[:service_ids],
             date: DateTime.strptime(date, "%m/%d/%Y %H:%M %p"),
@@ -80,10 +79,10 @@ use Rack::Flash
             provider_request_change: false,
             provider_cancelled: false,
             cancellation_message: ""
-
         )
         if @provider.save
-            redirect to "/providers/#{@provider.id}"
+            flash[:notification] = "Your appointment at #{@provider.business_name} has been requested."
+            redirect to "/clients/#{current_user.id}"
         else
             flash.now[:error] = @provider.errors.full_messages[0]
             erb :'appointments/new'
@@ -115,6 +114,7 @@ use Rack::Flash
             appointment.client_cancelled = true
             appointment.cancellation_message = params[:cancellation_message]
             appointment.save
+            flash[:notification] = "Your appointment has been cancelled."
             redirect to "/#{session[:type]}s/#{current_user.id}"
         else
             flash.now[:error] = "You do not have permission to do that."
@@ -152,9 +152,11 @@ use Rack::Flash
                 provider_request_change: false,
                 client_cancelled: false,
                 provider_cancelled: false,
-                cancellation_message: ""
+                cancellation_message: "",
+                old_appointment: appointment.id
             )
             if appointment.provider.save
+
                 redirect to "/#{session[:type]}s/#{current_user.id}"
             else
                 flash.now[:error] = "Something went wrong."
@@ -171,7 +173,7 @@ use Rack::Flash
         appointment = Appointment.find(params[:id])
         date = "#{params[:date]} #{params[:time]}"
         if has_permission?(appointment)
-            test = appointment.client.appointments.build(
+                appointment.client.appointments.build(
                 confirmed: false,
                 provider: appointment.provider,
                 services: appointment.services,
@@ -181,16 +183,18 @@ use Rack::Flash
                 provider_request_change: true,
                 client_cancelled: false,
                 provider_cancelled: false,
-                cancellation_message: ""
+                cancellation_message: "",
+                old_appointment: appointment.id
             )
             if appointment.client.save
+                flash[:notification] = 
                 redirect to "/#{session[:type]}s/#{current_user.id}"
             else
-                flash.now[:error] = "Something went wrong."
+                flash[:error] = "Something went wrong."
                 redirect to '/index'
             end
         else
-            flash.now[:error] = "You do not have permission to do that."
+            flash[:error] = "You do not have permission to do that."
             redirect to '/index'
         end
     end
