@@ -1,4 +1,6 @@
 class AppointmentController < ApplicationController
+    
+use Rack::Flash
 
     get '/appointments/:id/new' do
         check_login

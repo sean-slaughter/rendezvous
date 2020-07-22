@@ -19,6 +19,11 @@
                     <label for="password">Password</label>
                 </div>
             </div>
+            <% if flash[:error] %>
+            <div class="row center">
+                <p class="red-text"><%=flash[:error]%></p>
+                <% end %>
+            </div>
              <div class="row center">
                 <input class="btn-large" type="submit" value="Log In">
             </div>

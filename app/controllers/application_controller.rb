@@ -1,6 +1,7 @@
 require './config/environment'
 
 class ApplicationController < Sinatra::Base
+use Rack::Flash
 
   configure do
     enable :sessions
@@ -48,7 +49,8 @@ class ApplicationController < Sinatra::Base
           session[:type] = "client"
           redirect to "/clients/#{user.id}"
         else
-          redirect to '/failure'
+          flash.now[:error] = "Email or password was incorrect."
+          erb :'/login'
         end
       else
         user = Provider.find_by(email: email)
@@ -58,11 +60,12 @@ class ApplicationController < Sinatra::Base
             session[:type] = "provider"
             redirect to "/providers/#{user.id}"
           else
-            redirect to '/failure'
+            flash.now[:error] = "Email or password was incorrect."
+            erb :'/login'
           end
         else
-       
-          redirect to '/failure'
+            flash.now[:error] = "There is not an account associated with this email address."
+            erb :'/login'
         end
       end
     end

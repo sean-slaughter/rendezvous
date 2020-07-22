@@ -1,5 +1,7 @@
 class ServiceController < ApplicationController
 
+    use Rack::Flash
+    
     get '/services/new' do
         if !logged_in?
             redirect to '/login'

@@ -8,10 +8,10 @@
     <div class="row center">
         <form class="appointment-form" action="/appointments/<%=@provider.id%>" method="post">
           <div class="input-field">
-            <input type="text" name="date" value="Date" class="datepicker" id="date">
+            <input type="text" name="date" value="Date" class="datepicker" id="date" class="validate">
           </div>
           <div class="input-field">
-            <input type="text" name="time" value="Time" class="timepicker" id="time">
+            <input type="text" name="time" value="Time" class="timepicker" id="time" class="validate">
           </div>
               <label>Services</label>
               <div class="row">

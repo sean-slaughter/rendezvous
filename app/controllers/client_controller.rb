@@ -1,5 +1,6 @@
 class ClientController < ApplicationController
 
+use Rack::Flash
 
     get '/clients/signup' do
         if !logged_in?

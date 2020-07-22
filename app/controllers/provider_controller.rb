@@ -1,5 +1,7 @@
 class ProviderController < ApplicationController
 
+    use Rack::Flash
+    
     get '/providers/signup' do
         if !logged_in?
             erb :'providers/new'
@@ -9,11 +11,13 @@ class ProviderController < ApplicationController
     end
 
     get '/providers' do
+        check_login
         @providers = Provider.all
         erb :'/providers/index'
     end
 
     post '/providers/search' do
+        check_login
         @providers = Provider.search(params[:q])
         if @providers.empty?
             @providers = Service.search(params[:q])
@@ -26,6 +30,7 @@ class ProviderController < ApplicationController
     end
 
     post '/providers' do
+        check_login
         params[:email] = params[:email].downcase
         provider = Provider.new(params)
         if provider.save

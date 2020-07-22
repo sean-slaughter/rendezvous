@@ -98,12 +98,11 @@ Fix all failure routes
 Done?
 
 GENERAL TODO
-Appointment functionality
+
 Error handling
-Provider Search
-Make all models deletable
 Fix all failure routes
-Can't access login/registration if logged in
+Record presentation?
+
 
 
 things that would be nice:
