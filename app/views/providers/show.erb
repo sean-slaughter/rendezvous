@@ -28,9 +28,12 @@
         <%end%>
         
     </div>
+    <% if session[:type] == "client" %>
     <div class="row center">
     <a class="btn-large"style="margin-bottom: 150px;" href="/appointments/<%=@provider.id%>/new">Book an Appointment</a>
     </div>
+    <% end %>
+   
 
     
 </div>

@@ -34,7 +34,9 @@
                       <span class= "white-text"><%=current_user.email%></span>
               </div>
             </li>
-              <li><a style="color:#4A6163; margin-top:20px;" href="/providers"><i class="material-icons">search</i>Find a Provider</a></li>           
+            <% if session[:type] == "client" %>
+            <li><a style="color:#4A6163; margin-top:20px;" href="/providers"><i class="material-icons">search</i>Find a Provider</a></li>          
+            <% end %>
               <li><a style="color:#4A6163"href="/<%=session[:type]%>s/<%=current_user.id%>"> <i class="material-icons">person</i>My Appointments</a></li>
               <li><a style="color:#4A6163"href="/logout"><i class="material-icons">exit_to_app</i>Log Out</a></li>
         </ul>
