@@ -26,7 +26,6 @@ class ProviderController < ApplicationController
         end
         
         @providers = @providers.uniq.compact
-        binding.pry
         erb :'/providers/index'
     end
 
