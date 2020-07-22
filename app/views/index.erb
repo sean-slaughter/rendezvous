@@ -2,7 +2,12 @@
     <div class="container">
     <div class="row center">
         <img src="/images/blue_logo.png" alt="">
-    </div>
+    </div>  
+    <% if flash[:error] %>
+                <div class="row center">
+                    <p class="red-text"><%=flash[:error]%></p>
+                </div> 
+    <% end %>
         <div class="row">
             <div class="col 12 center-align">
                 <h2>Welcome</h2>

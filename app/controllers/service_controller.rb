@@ -22,7 +22,7 @@ class ServiceController < ApplicationController
                 description: params[:description] 
             )
             flash.now[:notification] = "Your service has been created."
-            redirect to "/providers/#{current_user.id}/edit"
+            erb :'providers/edit'
         else
             flash.now[:error] = "You do not have permission to do that."
             redirect to '/index'
@@ -56,7 +56,7 @@ class ServiceController < ApplicationController
                 :'services/edit'
             end
         else
-            flash.now[:error] = "Something went wrong."
+            flash[:error] = "Something went wrong."
             redirect to '/index'
         end
     end
@@ -68,9 +68,12 @@ class ServiceController < ApplicationController
             @service = Service.find(params[:id])
             if has_permission?(@service)
                 @service.destroy
-                flash.now[:notification] = "Your service: #{@service.name} has been deleted."
+                flash.now[:error] = "Your service: #{@service.name} has been deleted."
+                erb :'providers/edit'
+            else
+                flash[:error] = "You don't have permission to do that."
+                redirect to '/index'
             end
-            redirect to "/providers/#{current_user.id}/edit"
         end
     end
 
