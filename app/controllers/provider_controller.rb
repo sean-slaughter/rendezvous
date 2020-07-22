@@ -1,7 +1,7 @@
 class ProviderController < ApplicationController
 
     use Rack::Flash
-    
+
     get '/providers/signup' do
         if !logged_in?
             erb :'providers/new'
@@ -32,12 +32,14 @@ class ProviderController < ApplicationController
     post '/providers' do
         check_login
         params[:email] = params[:email].downcase
+        if Client.get_emails.include?(params[:email])
+            flash[:error] = "Email is already taken."
         provider = Provider.new(params)
         if provider.save
             login(provider.email, provider.password)
             redirect to "/providers/#{provider.id}"
         else
-            redirect to '/providers/signup'
+            flash[:error] = provider.error.full_messages[0]
         end
     end
 

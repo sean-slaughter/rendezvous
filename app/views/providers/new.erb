@@ -7,6 +7,11 @@
     </div>
     <div class="container">
         <form class="registration-form" action="/providers" method="post">
+            <% if flash[:error] %>
+                <div class="row center">
+                    <p class="red-text"><%=flash[:error]%></p>
+                </div> 
+                <% end %>
            <div class="row">
                 <div class="input-field">
                     <input type="text" name="name" id="name" class="validate">

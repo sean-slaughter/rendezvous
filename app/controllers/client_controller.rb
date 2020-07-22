@@ -12,12 +12,18 @@ use Rack::Flash
 
     post '/clients' do
         params[:email] = params[:email].downcase
-        client = Client.new(params)
-        if client.save
-            login(client.email, client.password)
-            redirect to "/clients/#{client.id}"
+        if Provider.get_emails.include?(params[:email])
+            flash.now[:error] = "Email has already been taken."
+            erb :'clients/new'
         else
-            redirect to '/clients/signup'
+            client = Client.new(params)
+            if client.save
+                login(client.email, client.password)
+                redirect to "/clients/#{client.id}"
+            else
+                flash.now[:error] = client.errors.full_messages[0]
+                erb :'clients/new'
+            end
         end
     end
 

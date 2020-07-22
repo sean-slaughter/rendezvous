@@ -1,13 +1,18 @@
 class Provider < ActiveRecord::Base
+    require_relative './client'
     has_secure_password
     validates :email, presence: true, uniqueness: true
-    validates :name, presence: true
+    validates :business_name, presence: true
     has_many :services
     has_many :appointments
     has_many :clients, through: :appointments
 
     def self.search(search)
         self.where('business_name like :q or name like :q', :q => "%#{search}%").to_a
+    end
+
+    def self.get_emails
+        self.all.collect {|provider| provider.email}
     end
 
 

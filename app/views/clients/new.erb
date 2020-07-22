@@ -8,6 +8,11 @@
     <div class="container">
         <form class="registration-form" action="/clients" method="post">
            <div class="row">
+                <% if flash[:error] %>
+                <div class="row center">
+                    <p class="red-text"><%=flash[:error]%></p>
+                </div> 
+                <% end %>
                 <div class="input-field">
                     <input type="text" name="name" id="name" class="validate">
                     <label for="name">Name</label>

@@ -1,10 +1,15 @@
 class Client < ActiveRecord::Base
-    
+    require_relative './provider'
     has_secure_password
     validates :email, presence: true, uniqueness: true
     validates :name, presence: true
     has_many :appointments
     has_many :providers, through: :appointments
+
+
+    def self.get_emails
+        self.all.collect {|client| client.email}
+    end
 
     #new appointment confirmation/denial
     def new_confirmations
