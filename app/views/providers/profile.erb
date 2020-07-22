@@ -11,6 +11,11 @@
         <p class="red-text"><%=flash[:error]%></p>
       </div>
     <% end %>
+      <% if flash[:notification] %>
+            <div>
+            <p class="green-text"><%=flash[:notification]%></p>
+            </div>
+    <% end %>
     <% if !@unconfirmed_appointments.empty?%>
         <p class="flow-text red-text">You have <%=@unconfirmed_appointments.size%> unconfirmed appointment(s)!</p> 
         <p class="red-text">Please confirm or deny these appointment(s) before moving forward.</p> 

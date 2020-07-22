@@ -1,5 +1,15 @@
 <div class="container">
     <div class="row center top-spaced-bar">
+        <% if flash[:notification] %>
+            <div>
+            <p class="green-text"><%=flash[:notification]%></p>
+            </div>
+        <% end %>
+           <% if flash[:error] %>
+            <div>
+            <p class="red-text"><%=flash[:error]%></p>
+            </div>
+        <% end %>
         <h2>Edit <%=current_user.business_name%></h2>
           <form action="/providers/<%=current_user.id%>" method="post">
         <input id="hidden" type="hidden" name="_method" value="DELETE">

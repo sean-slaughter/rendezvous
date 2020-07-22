@@ -56,8 +56,11 @@ use Rack::Flash
             current_user.phone_number = params[:phone_number]
             current_user.location = params[:location]
             if current_user.save
-                redirect to "/clients/#{params[:id]}"
+                flash.now[:notification] = "Your account information has been updated."
+                @client = current_user
+                erb :'clients/profile'
             else
+                flash.now[:error] = "Something went wrong."
                 redirect to '/index'
             end
         else
@@ -68,8 +71,10 @@ use Rack::Flash
     delete '/clients/:id' do
         check_login
         if has_permission?
-            current_user.destroy
-            redirect to '/logout'
+            current_user.destroy   
+            session.clear
+            flash.now[:error] = "Your account has been deleted."
+            erb :'index'
         end
     end
 

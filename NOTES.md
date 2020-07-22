@@ -103,6 +103,20 @@ Error handling
 Fix all failure routes
 Record presentation?
 
+PRESENTATION
+             
+                1.Signup as Client Walkthrough, edit info, delete account
+                2.Signup as Provider Walkthrough, edit info, delete account
+                3.Sign in as Bill Murray
+                4. Sign in as Anthony Barberino
+                5. Book appointment, confirm
+                6. Book appointment, deny
+                7. Provider Change edited appointment confirm
+                8. Change edited appointment deny
+                9. Client change editing confirm/deny
+                10. Provider cancellation
+                11. Client cancellation
+                12. Search providers
 
 
 things that would be nice:

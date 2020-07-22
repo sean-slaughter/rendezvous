@@ -21,8 +21,10 @@ class ServiceController < ApplicationController
                 price: params[:price].remove("$").to_d, 
                 description: params[:description] 
             )
+            flash.now[:notification] = "Your service has been created."
             redirect to "/providers/#{current_user.id}/edit"
         else
+            flash.now[:error] = "You do not have permission to do that."
             redirect to '/index'
         end
     end
@@ -47,11 +49,14 @@ class ServiceController < ApplicationController
             @service.description = params[:description]
             @service.price = params[:price].remove("$").to_d
             if @service.save
-                redirect to "/providers/#{current_user.id}"
+                flash.now[:notification] = "Your service #{@service.name} has been updated."
+                redirect to "/providers/#{current_user.id}/edit"
             else
-                redirect to '/index'
+                flash.now[:error] = @service.errors.full_messages[0]
+                :'services/edit'
             end
         else
+            flash.now[:error] = "Something went wrong."
             redirect to '/index'
         end
     end
@@ -63,6 +68,7 @@ class ServiceController < ApplicationController
             @service = Service.find(params[:id])
             if has_permission?(@service)
                 @service.destroy
+                flash.now[:notification] = "Your service: #{@service.name} has been deleted."
             end
             redirect to "/providers/#{current_user.id}/edit"
         end

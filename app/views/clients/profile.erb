@@ -4,7 +4,16 @@
         <h2>Hello, <%=current_user.name%>!</h2>
         <a class="btn-small" href="/clients/<%=current_user.id%>/edit">Edit My Info</a>
        </div>
-
+     <% if flash[:notification] %>
+            <div>
+            <p class="green-text"><%=flash[:notification]%></p>
+            </div>
+    <% end %>
+     <% if flash[:error] %>
+                <div class="row center">
+                    <p class="red-text"><%=flash[:error]%></p>
+                </div> 
+    <% end %>
        <!--check for new requests from provider to change appointments-->
     <% if !@unconfirmed_changes.empty?%>
         <p class="flow-text red-text">You have <%=@unconfirmed_changes.size%> request(s) for appointment changes!</p> 

@@ -8,7 +8,7 @@ use Rack::Flash
         if @provider
             erb :'appointments/new'
         else
-            flash[:error] = "Something went wrong."
+            flash.now[:error] = "Something went wrong."
             redirect to '/index'
         end
     end
@@ -21,6 +21,7 @@ use Rack::Flash
             appointment.save
             redirect to "providers/#{current_user.id}"
         else
+            flash.now[:error] = "Something went wrong."
             redirect to '/index'
         end
     end
@@ -54,7 +55,7 @@ use Rack::Flash
                 appointment.save
                 redirect to "/#{session[:type]}s/#{current_user.id}"
             else
-                flash[:error] = "Something went wrong."
+                flash.now[:error] = "Something went wrong."
                 redirect to '/index'
             end
         else
@@ -98,11 +99,11 @@ use Rack::Flash
             elsif session[:type] == "provider"
                 erb :'appointments/provider_edit'
             else
-                flash[:error] = "Something went wrong."
+                flash.now[:error] = "Something went wrong."
                 redirect to '/index'
             end
         else
-            flash[:error] = "You do not have permission to do that."
+            flash.now[:error] = "You do not have permission to do that."
             redirect to '/index'
         end
     end
@@ -116,7 +117,7 @@ use Rack::Flash
             appointment.save
             redirect to "/#{session[:type]}s/#{current_user.id}"
         else
-            flash[:error] = "You do not have permission to do that."
+            flash.now[:error] = "You do not have permission to do that."
             redirect to '/index'
         end
     end
@@ -130,7 +131,7 @@ use Rack::Flash
             appointment.save
             redirect to "/#{session[:type]}s/#{current_user.id}"
         else
-            flash[:error] = "You do not have permission to do that."
+            flash.now[:error] = "You do not have permission to do that."
             redirect to '/index'
         end
     end
@@ -156,11 +157,11 @@ use Rack::Flash
             if appointment.provider.save
                 redirect to "/#{session[:type]}s/#{current_user.id}"
             else
-                flash[:error] = "Something went wrong."
+                flash.now[:error] = "Something went wrong."
                 redirect to '/index'
             end
         else
-            flash[:error] = "You do not have permission to do that."
+            flash.now[:error]= "You do not have permission to do that."
             redirect to '/index'
         end
     end
@@ -185,11 +186,11 @@ use Rack::Flash
             if appointment.client.save
                 redirect to "/#{session[:type]}s/#{current_user.id}"
             else
-                flash[:error] = "Something went wrong."
+                flash.now[:error] = "Something went wrong."
                 redirect to '/index'
             end
         else
-            flash[:error] = "You do not have permission to do that."
+            flash.now[:error] = "You do not have permission to do that."
             redirect to '/index'
         end
     end

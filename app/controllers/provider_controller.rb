@@ -32,7 +32,7 @@ class ProviderController < ApplicationController
     post '/providers' do
         params[:email] = params[:email].downcase
         if Client.get_emails.include?(params[:email])
-            flash[:error] = "Email is already taken."
+            flash.now[:error] = "Email is already taken."
             erb :'/providers/new'
         else
             provider = Provider.new(params)
@@ -40,7 +40,8 @@ class ProviderController < ApplicationController
                 login(provider.email, provider.password)
                 redirect to "/providers/#{provider.id}"
             else
-                flash[:error] = provider.error.full_messages[0]
+                flash.now[:error] = provider.error.full_messages[0]
+                erb :'providers/new'
             end
         end
     end
@@ -52,7 +53,6 @@ class ProviderController < ApplicationController
             erb :'providers/profile'
         else
             @provider = Provider.find(params[:id])
-            
             erb :'providers/show'
         end
     end
@@ -62,6 +62,7 @@ class ProviderController < ApplicationController
         if has_permission?
             erb :'providers/edit'
         else
+            flash.now[:error] = "Something went wrong."
             redirect to '/index'
         end
     end
@@ -75,8 +76,11 @@ class ProviderController < ApplicationController
             current_user.phone_number = params[:phone_number]
             current_user.location = params[:location]
             if current_user.save
-                redirect to "/providers/#{params[:id]}"
+                flash.now[:notification] = "Your account information has been updated."
+                get_changes
+                erb :'providers/profile'
             else
+                flash.now[:error] = "Something went wrong."
                 redirect to '/index'
             end
         else
@@ -88,7 +92,9 @@ class ProviderController < ApplicationController
         check_login
         if has_permission?
             current_user.destroy
-            redirect to '/logout'
+            session.clear
+            flash.now[:error] = "Your account has been deleted."
+            erb :'index'
         end
     end
 

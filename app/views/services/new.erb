@@ -1,5 +1,11 @@
 <div class="container">
+
     <div class="row center top-spaced-bar">
+     <% if flash[:error] %>
+                <div class="row center">
+                    <p class="red-text"><%=flash[:error]%></p>
+                </div> 
+    <% end %>
         <h1>Add a new Service!</h1>
     </div>
     <div class="container">
