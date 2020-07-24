@@ -6,7 +6,7 @@ class Client < ActiveRecord::Base
     has_many :appointments
     has_many :providers, through: :appointments
 
-
+    #used to validate unique email address
     def self.get_emails
         self.all.collect {|client| client.email}
     end
@@ -43,6 +43,7 @@ class Client < ActiveRecord::Base
         self.appointments.select{|appointment| appointment.confirmed == true && appointment.provider_cancelled == false && appointment.client_cancelled == false}
     end
     
+    #used to compare new and old appointments when asking for change confirmation
     def get_old_appointment(new_appointment)
        self.appointments.find(new_appointment.old_appointment)
     end

@@ -2,6 +2,7 @@ class ProviderController < ApplicationController
 
     use Rack::Flash
 
+    #new provider signup
     get '/providers/signup' do
         if !logged_in?
             erb :'providers/new'
@@ -9,13 +10,15 @@ class ProviderController < ApplicationController
             redirect to "/#{session[:type]}s/#{current_user.id}"
          end
     end
-
+    
+    #provider index page
     get '/providers' do
         check_login
         @providers = Provider.all
         erb :'/providers/index'
     end
 
+    #display provider search results
     post '/providers/search' do
         check_login
         @providers = Provider.search(params[:q])
@@ -29,6 +32,8 @@ class ProviderController < ApplicationController
         erb :'/providers/index'
     end
 
+    #create new provider
+    #postcondition: new provider object created from user input and logged in as current_user    
     post '/providers' do
         params[:email] = params[:email].downcase
         if Client.get_emails.include?(params[:email])
@@ -46,6 +51,7 @@ class ProviderController < ApplicationController
         end
     end
 
+    #display provider profile page if logged in, else provider show page
     get '/providers/:id' do
        check_login
        if has_permission?
@@ -57,6 +63,7 @@ class ProviderController < ApplicationController
         end
     end
 
+    #edit provider page
     get '/providers/:id/edit' do
         check_login
         if has_permission?
@@ -67,6 +74,8 @@ class ProviderController < ApplicationController
         end
     end
 
+    #edit provider page
+    #postcondition: provider profile has been updated with user input and saved
     patch '/providers/:id' do
        check_login
        if has_permission?
@@ -88,6 +97,8 @@ class ProviderController < ApplicationController
         end
     end
     
+    #delete current_user
+    #postcondition: current_user is destroyed and session data is cleared.
     delete '/providers/:id' do
         check_login
         if has_permission?
@@ -99,10 +110,14 @@ class ProviderController < ApplicationController
     end
 
     helpers do
+        #is the current user a provider and the right id?
         def has_permission?
             current_user.instance_of?(Provider) && current_user.id == params[:id].to_i
         end
 
+        #uses model instance methods to determine current state of all appointments
+        #postcondition: new confirmations, denials, requests, and cancellations are all
+        #loaded into arrays for displaying on the page.    
         def get_changes
             @confirmed_appointments = []
             @unconfirmed_appointments = []

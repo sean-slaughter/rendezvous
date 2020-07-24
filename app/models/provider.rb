@@ -7,10 +7,12 @@ class Provider < ActiveRecord::Base
     has_many :appointments
     has_many :clients, through: :appointments
 
+    #return array of providers based on search results 
     def self.search(search)
         self.where('business_name like :q or name like :q', :q => "%#{search}%").to_a
     end
 
+    #used to validate unique email address
     def self.get_emails
         self.all.collect {|provider| provider.email}
     end
@@ -42,6 +44,7 @@ class Provider < ActiveRecord::Base
         self.appointments.select{|appointment| appointment.client_cancelled == true && appointment.confirmed == true}
     end 
 
+    #used to display old appointment information for change confirmation
     def get_old_appointment(new_appointment)
         self.appointments.find(new_appointment.old_appointment)
      end

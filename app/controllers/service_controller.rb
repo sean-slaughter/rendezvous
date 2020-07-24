@@ -2,6 +2,8 @@ class ServiceController < ApplicationController
 
     use Rack::Flash
     
+    #new service form
+    #only show if current user is a provider
     get '/services/new' do
         if !logged_in?
             redirect to '/login'
@@ -12,6 +14,8 @@ class ServiceController < ApplicationController
         end
     end
 
+    #create a new service
+    #postcondition: new service object has been created and associated with current user
     post '/services' do
         if !logged_in?
             redirect to '/login'
@@ -29,6 +33,7 @@ class ServiceController < ApplicationController
         end
     end
 
+    #edit service
     get '/services/:id/edit' do
         @service = Service.find(params[:id])
         if !logged_in?
@@ -40,6 +45,8 @@ class ServiceController < ApplicationController
         end
     end
 
+    #edit service
+    #postcondition: service information is updated and saved
     patch '/services/:id' do
         @service = Service.find(params[:id])
         if !logged_in?
@@ -61,6 +68,7 @@ class ServiceController < ApplicationController
         end
     end
 
+    #delete service
     delete '/services/:id' do
         if !logged_in?
             redirect to '/login'
@@ -79,6 +87,8 @@ class ServiceController < ApplicationController
 
 
     helpers do
+
+        #is the current user the provider of this service?
         def has_permission?(service)
             current_user.instance_of?(Provider) && current_user.services.include?(service)
         end

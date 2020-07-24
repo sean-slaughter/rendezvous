@@ -10,6 +10,7 @@ use Rack::Flash
     set :views, 'app/views'
   end
 
+    #index
   get "/" do
     if !logged_in?
       erb :index
@@ -17,11 +18,7 @@ use Rack::Flash
      redirect to "/#{session[:type]}s/#{current_user.id}"
    end
   end
-
-  get '/failure' do
-    erb :failure
-  end
-
+  
   get '/login' do
     if !logged_in?
        erb :login
@@ -41,11 +38,16 @@ use Rack::Flash
 
   helpers do
 
+    #is anyone logged in?
     def logged_in?
       !!current_user
     end
 
+    #login
+    #params: email and password user enters from login form
+    #post condition: session now has user id and type
     def login(email, password)
+      #check if user is a client
       user = Client.find_by(email: email)
       if user
         if user.authenticate(password)
@@ -57,6 +59,7 @@ use Rack::Flash
           erb :'/login'
         end
       else
+        #check if user is a provider
         user = Provider.find_by(email: email)
         if user
           if user.authenticate(password)
@@ -74,7 +77,7 @@ use Rack::Flash
       end
     end
 
-
+    #returns object of current user
     def current_user
        if session[:type] == "client"
         @current_user ||= Client.find(session[:user_id]) if session[:user_id]
@@ -83,12 +86,14 @@ use Rack::Flash
        end
     end
 
+    #redirect to login if not logged in
     def check_login
       if !logged_in?
         redirect to '/login'
       end
     end
 
+    #logout and clear session data
     def logout
       session.clear
     end

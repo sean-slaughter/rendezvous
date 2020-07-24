@@ -1,7 +1,7 @@
 class ClientController < ApplicationController
 
 use Rack::Flash
-
+    #client registration
     get '/clients/signup' do
         if !logged_in?
             erb :'clients/new'
@@ -9,7 +9,8 @@ use Rack::Flash
            redirect to "/#{session[:type]}s/#{current_user.id}"
          end
     end
-
+    #client registration
+    #postcondition: new client object created from user input
     post '/clients' do
         params[:email] = params[:email].downcase
         if Provider.get_emails.include?(params[:email])
@@ -27,6 +28,7 @@ use Rack::Flash
         end
     end
 
+    #client profile page if client is logged in, otherwise client show page.
     get '/clients/:id' do
         check_login
         if has_permission?
@@ -38,6 +40,7 @@ use Rack::Flash
         end 
     end
 
+    #edit client profile information
     get '/clients/:id/edit' do
         check_login
         if has_permission?
@@ -47,7 +50,8 @@ use Rack::Flash
         end
     end
             
-
+    #update client profile information
+    #postcondition: current user profile information is updated and saved
     patch '/clients/:id' do
         check_login
         if has_permission?
@@ -58,7 +62,6 @@ use Rack::Flash
             if current_user.save
                 flash.now[:notification] = "Your account information has been updated."
                 @client = current_user
-                get_changes
                 erb :'clients/profile'
             else
                 flash.now[:error] = "Something went wrong."
@@ -69,21 +72,27 @@ use Rack::Flash
         end
     end
 
+    #delete client account
+    #postcondition: current_user destroys self and session data is cleared
     delete '/clients/:id' do
         check_login
         if has_permission?
             current_user.destroy   
             session.clear
-            flash[:error] = "Your account has been deleted."
+            flash.now[:error] = "Your account has been deleted."
             erb :'index'
         end
     end
 
     helpers do
+        #is the current user a client and the right id?
         def has_permission?
             current_user.instance_of?(Client) && current_user.id == params[:id].to_i
         end
 
+        #uses model instance methods to determine current state of all appointments
+        #postcondition: new confirmations, denials, requests, and cancellations are all
+        #loaded into arrays for displaying on the page. 
         def get_changes
             @new_confirmations = []
             @new_denials = []

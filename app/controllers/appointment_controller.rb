@@ -2,6 +2,7 @@ class AppointmentController < ApplicationController
 
 use Rack::Flash
 
+    #new appointment get request
     get '/appointments/:id/new' do
         check_login
         @provider = Provider.find(params[:id])
@@ -13,6 +14,8 @@ use Rack::Flash
         end
     end
 
+    #new appointment confirmation get request
+    #postcondition: appointment has been confirmed
     get '/appointments/:id/confirm' do
         check_login
         appointment = Appointment.find(params[:id])
@@ -26,6 +29,8 @@ use Rack::Flash
         end
     end
 
+    #new appointment change get request
+    #postcondition: appointment change has been confirmed
     get '/appointments/:id/confirm_change' do
         check_login
         new_appointment = Appointment.find(params[:id])
@@ -39,7 +44,9 @@ use Rack::Flash
             redirect to '/index'
         end
     end
-
+    
+    #appointment denial get request
+    #postcondition appointment cancellation and notification status are true
     get '/appointments/:id/deny' do
         check_login
         appointment = Appointment.find(params[:id])
@@ -63,7 +70,8 @@ use Rack::Flash
         end
     end
 
-
+    #creating a new appointment with a provider
+    #postcondition: new appointment object has been created from user input
     post '/appointments/:provider_id' do 
         check_login
         @provider = Provider.find(params[:provider_id])
@@ -89,6 +97,8 @@ use Rack::Flash
         end
     end
 
+    #editing an appointment get request
+    #sends user to either client or provider edit page based on their type
     get '/appointments/:id/edit' do
         check_login
         @appointment = Appointment.find(params[:id])
@@ -107,6 +117,8 @@ use Rack::Flash
         end
     end
 
+    #client appointment cancellation    
+    #postcondition: client_cancelled = true
     patch '/appointments/:id/client_cancel' do
         check_login
         appointment = Appointment.find(params[:id])
@@ -122,6 +134,8 @@ use Rack::Flash
         end
     end
 
+    #provider appointment cancellation
+    #postcondition: provider_cancelled = true
     patch '/appointments/:id/provider_cancel' do
         check_login
         appointment = Appointment.find(params[:id])
@@ -136,7 +150,9 @@ use Rack::Flash
         end
     end
 
-    #need to edit for logic about provider/client changing
+    #client request to change appointment
+    #postcondition: new appointment has been created, old appointment is associated with it
+    #will not be destroyed until other party has been asked to confirm/deny
     patch '/appointments/:id/client_change' do
         check_login
         appointment = Appointment.find(params[:id])
@@ -168,6 +184,9 @@ use Rack::Flash
         end
     end
 
+    #provider request to change appointment
+    #postcondition: new appointment has been created, old appointment is associated with it
+    #will not be destroyed until other party has been asked to confirm/deny
     patch '/appointments/:id/provider_change' do
         check_login
         appointment = Appointment.find(params[:id])
@@ -199,6 +218,7 @@ use Rack::Flash
         end
     end
 
+    #does current user have anything to do with this appointment?
     helpers do
         def has_permission?(appointment)
             appointment.provider == current_user || appointment.client == current_user
