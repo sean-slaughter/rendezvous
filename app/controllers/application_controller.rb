@@ -98,6 +98,10 @@ use Rack::Flash
       session.clear
     end
 
+    def redirect_to_profile
+      redirect to "/#{session[:type]}s/#{current_user.id}"
+    end
+
   
       
 

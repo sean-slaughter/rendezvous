@@ -10,7 +10,7 @@ use Rack::Flash
             erb :'appointments/new'
         else
             flash[:error] = "Something went wrong."
-            redirect to '/index'
+            redirect_to_profile
         end
     end
 
@@ -25,7 +25,7 @@ use Rack::Flash
             redirect to "providers/#{current_user.id}"
         else
             flash[:error] = "Something went wrong."
-            redirect to '/index'
+            redirect_to_profile
         end
     end
 
@@ -41,7 +41,7 @@ use Rack::Flash
             old_appointment.destroy
             redirect to "/#{session[:type]}s/#{current_user.id}"
         else
-            redirect to '/index'
+            redirect_to_profile
         end
     end
     
@@ -63,10 +63,10 @@ use Rack::Flash
                 redirect to "/#{session[:type]}s/#{current_user.id}"
             else
                 flash.now[:error] = "Something went wrong."
-                redirect to '/index'
+                redirect_to_profile
             end
         else
-            redirect to '/index'
+            redirect_to_profile
         end
     end
 
@@ -109,11 +109,11 @@ use Rack::Flash
                 erb :'appointments/provider_edit'
             else
                 flash.now[:error] = "Something went wrong."
-                redirect to '/index'
+                redirect to "/#{session[:type]}s/#{current_user.id}"
             end
         else
             flash.now[:error] = "You do not have permission to do that."
-            redirect to '/index'
+            redirect to "/#{session[:type]}s/#{current_user.id}"
         end
     end
 
@@ -130,7 +130,7 @@ use Rack::Flash
             redirect to "/#{session[:type]}s/#{current_user.id}"
         else
             flash.now[:error] = "You do not have permission to do that."
-            redirect to '/index'
+            redirect_to_profile
         end
     end
 
@@ -146,7 +146,7 @@ use Rack::Flash
             redirect to "/#{session[:type]}s/#{current_user.id}"
         else
             flash.now[:error] = "You do not have permission to do that."
-            redirect to '/index'
+            redirect_to_profile
         end
     end
 
@@ -176,11 +176,11 @@ use Rack::Flash
                 redirect to "/#{session[:type]}s/#{current_user.id}"
             else
                 flash.now[:error] = "Something went wrong."
-                redirect to '/index'
+                redirect_to_profile
             end
         else
             flash.now[:error]= "You do not have permission to do that."
-            redirect to '/index'
+            redirect_to_profile
         end
     end
 
@@ -210,11 +210,11 @@ use Rack::Flash
                 redirect to "/#{session[:type]}s/#{current_user.id}"
             else
                 flash[:error] = "Something went wrong."
-                redirect to '/index'
+                redirect_to_profile
             end
         else
             flash[:error] = "You do not have permission to do that."
-            redirect to '/index'
+            redirect_to_profile
         end
     end
 

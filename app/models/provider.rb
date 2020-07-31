@@ -3,6 +3,7 @@ class Provider < ActiveRecord::Base
     has_secure_password
     validates :email, presence: true, uniqueness: true
     validates :business_name, presence: true
+    belongs_to :category
     has_many :services
     has_many :appointments
     has_many :clients, through: :appointments
