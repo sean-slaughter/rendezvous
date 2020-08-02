@@ -1,4 +1,4 @@
-
+sean = 
 tony = Provider.create(name: "Marcus Massage", email: "mmassage@gmail.com", business_name: "Massages By Marcus", location: "5456 Lincoln Ave, Milwaukee WI",password: "password123", phone_number: "555-555-5555")
 tony.services << Service.create(name: "Swedish Massage (30 min)", description: "Swedish massage is a relaxing full-body massage designed to manipulate the superficial layers of the muscles to aide in both mental and physical health. Benefits of Swedish massage include increased circulation, mental and physical relaxation, decreased stress and muscle tension, and improved range of motion. ", price: 45)
 tony.services << Service.create(name: "Swedish Massage (60 min)", description: "Swedish massage is a relaxing full-body massage designed to manipulate the superficial layers of the muscles to aide in both mental and physical health. Benefits of Swedish massage include increased circulation, mental and physical relaxation, decreased stress and muscle tension, and improved range of motion. ", price: 75)
