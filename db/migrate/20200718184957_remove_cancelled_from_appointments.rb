@@ -1,4 +1,5 @@
-class RemoveCancelledFromAppointments < ActiveRecord::Migration
+class RemoveCancelledFromAppointments < ActiveRecord::Migration[4.2]
+
   def change
     change_table :appointments do |t|
       t.remove :cancelled
