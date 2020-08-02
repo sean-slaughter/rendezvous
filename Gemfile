@@ -11,7 +11,6 @@ gem 'shotgun'
 gem 'bcrypt'
 gem 'tux'
 gem 'pry'
-gem 'sqlite3', '~> 1.3.6'
 gem 'pg'
 
 group :test do
